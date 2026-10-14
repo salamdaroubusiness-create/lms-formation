@@ -1,0 +1,870 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GSC Business Center · Plateforme de formation et de gestion de projets</title><style id="appcss">:root{--navy:#29235C;--mag:#E6007E;--bg:#fff;--bg2:#F5F4FA;--tx:#1d1a3a;--mu:#625f7a;--bd:#E2E0EE;--card:#fff;--ok:#0a7f4f;--okb:#E3F6EC;--wn:#9a5b00;--wnb:#FFF1D6;--bad:#b3261e;--badb:#FDE7E5;--sh:0 2px 10px rgba(41,35,92,.08);--r:14px}
+@media(prefers-color-scheme:dark){:root{--bg:#14122b;--bg2:#1b1840;--tx:#ecebf7;--mu:#a9a6c6;--bd:#322e63;--card:#1e1b47;--ok:#4fd39a;--okb:#123a2c;--wn:#f0b45a;--wnb:#3b2d0f;--bad:#ff8d85;--badb:#3d1a1a;--sh:none}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);-webkit-text-size-adjust:100%}
+img{max-width:100%}a{color:var(--mag);text-decoration:none}a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.2;margin:0 0 .5em;color:var(--tx)}h1{font-size:clamp(1.7rem,4vw,2.6rem)}h2{font-size:clamp(1.3rem,2.6vw,1.8rem);margin-top:1.4em}h3{font-size:1.1rem}
+.sec h2:first-child,.sh h2,.card h2{margin-top:0}
+p{margin:0 0 .8em}.muted{color:var(--mu)}.small{font-size:.86rem}.mono{font-family:ui-monospace,Menlo,monospace;word-break:break-all}.pre{white-space:pre-wrap}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}.narrow{max-width:760px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.between{justify-content:space-between}.nw{white-space:nowrap}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.w2{grid-column:span 2}@media(max-width:560px){.w2{grid-column:span 1}}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--mag);outline-offset:2px}
+/* boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 20px;border-radius:999px;border:2px solid var(--mag);background:var(--mag);color:#fff;font:600 .95rem/1.2 inherit;cursor:pointer;text-decoration:none!important;min-height:44px}
+.btn:hover{filter:brightness(1.08)}.btn.line{background:transparent;color:var(--mag)}.btn.ghost{background:transparent;color:#fff;border-color:#fff}.btn.danger{background:transparent;color:var(--bad);border-color:var(--bad)}
+.btn.sm{padding:6px 14px;min-height:36px;font-size:.85rem}.btn[disabled]{opacity:.4;cursor:default}
+.lnk{background:none;border:0;color:var(--mag);cursor:pointer;font:inherit;padding:0;text-decoration:underline}
+.chip{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:999px;padding:6px 14px;cursor:pointer;font:inherit;font-size:.88rem}.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+/* formulaires */
+.fld{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}.fld label{font-size:.85rem;font-weight:600}
+input,select,textarea{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;width:100%;min-height:44px}textarea{resize:vertical}
+input[type=checkbox],input[type=radio]{width:auto;min-height:0}.fld.chk,.chkl{flex-direction:row;align-items:center;gap:8px;font-size:.92rem}.fld.chk label{font-weight:400}
+.err{color:var(--bad);font-size:.9rem;min-height:1.2em}.chkl{display:flex;margin:10px 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;z-index:99;box-shadow:0 6px 24px rgba(0,0,0,.25);max-width:90vw}
+/* tags */
+.tg{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.76rem;font-weight:600;background:var(--bg2);color:var(--mu);border:1px solid var(--bd)}.tg.lv{background:var(--navy);color:#fff;border-color:var(--navy)}.tg.ok{background:var(--okb);color:var(--ok);border-color:transparent}.tg.warn{background:var(--wnb);color:var(--wn);border-color:transparent}.tg.no{background:var(--badb);color:var(--bad);border-color:transparent}.tg.todo{background:var(--bg2)}
+.bad{color:var(--bad)}.cnt{display:inline-block;min-width:20px;padding:0 6px;border-radius:999px;background:var(--mag);color:#fff;font-size:.75rem;text-align:center;margin-left:6px}
+/* en-tête */
+.hd{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--bd)}.hdin{display:flex;align-items:center;gap:16px;min-height:66px}
+.brand img{height:40px;display:block}.nav{display:flex;gap:4px;margin-left:auto;align-items:center}.nav a{padding:8px 12px;border-radius:8px;color:var(--tx);font-weight:600;font-size:.93rem}.nav a[aria-current=page]{color:var(--mag)}.nav a.cta{background:var(--mag);color:#fff;border-radius:999px}
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--bd);border-radius:8px;width:44px;height:44px;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px}.burger span{display:block;width:20px;height:2px;background:var(--tx)}
+@media(max-width:860px){.burger{display:flex}.nav{display:none;position:absolute;top:66px;left:0;right:0;background:var(--bg);flex-direction:column;align-items:stretch;padding:10px 16px 16px;border-bottom:1px solid var(--bd);margin:0}.nav.open{display:flex}}
+/* hero */
+.hero{background:linear-gradient(135deg,var(--navy),#3b2f86);color:#fff;padding:56px 0 24px}.hero h1,.hero .lead{color:#fff}.hero.sm{padding:36px 0 30px}.herog{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}@media(max-width:860px){.herog{grid-template-columns:1fr}.cert-prev{display:none}}
+.eyb{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#ffb3dc;margin-bottom:10px}.lead{font-size:1.1rem;color:var(--mu)}
+.cert-prev{background:#fff;color:var(--navy);border-radius:16px;padding:10px;transform:rotate(2deg);box-shadow:0 14px 40px rgba(0,0,0,.35)}.cp-in{border:2px solid var(--mag);border-radius:10px;padding:26px 20px;text-align:center;display:grid;gap:8px}.cp-in small{letter-spacing:.1em;text-transform:uppercase;color:var(--mag);font-weight:700}.cp-in b{font-size:1.6rem}.cp-in i{font-weight:700}.cp-in em{font-size:.75rem;color:#625f7a}
+.kpis{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;padding:0;margin:26px 0 0}.kpis li{background:rgba(255,255,255,.1);border-radius:12px;padding:12px 16px}.kpis b{display:block;font-size:1.4rem}.kpis span{font-size:.85rem;opacity:.85}.kpis.dk li{background:rgba(255,255,255,.12)}
+.crumb{font-size:.88rem;color:var(--mu);margin-bottom:10px}.crumb.dk,.crumb.dk a,.small.dk{color:#d7d3f7}
+/* sections */
+.sec{padding:44px 0}.sec.alt{background:var(--bg2)}.sh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.band{background:var(--navy);color:#fff;border-radius:20px;padding:30px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}.band h2,.band p{color:#fff;margin-top:0}
+.filters{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 20px;align-items:end}.fl{display:flex;flex-direction:column;gap:4px;min-width:150px}.fl label{font-size:.8rem;font-weight:600}.fl.fq{flex:1;min-width:220px}
+.empty{background:var(--bg2);border:1px dashed var(--bd);border-radius:var(--r);padding:26px;text-align:center;color:var(--mu)}
+/* cartes formation */
+.cc{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:var(--sh)}
+.cv{height:120px;background:linear-gradient(135deg,hsl(var(--h) 60% 30%),hsl(calc(var(--h) + 30) 70% 45%));position:relative;color:#fff}.cv-t{position:absolute;left:14px;bottom:10px;font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;opacity:.95}.cv-i{position:absolute;right:14px;top:6px;font-size:3.4rem;font-weight:800;opacity:.25}
+.pop{position:absolute;top:10px;left:10px;background:var(--mag);color:#fff;font-size:.74rem;font-weight:700;padding:3px 10px;border-radius:999px}.pop.free{background:var(--ok)}
+.cb{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}.cb h3{margin:0}.cb h3 a{color:var(--tx)}.cm{display:flex;gap:6px;flex-wrap:wrap}.cpath{font-size:.8rem;color:var(--mag);font-weight:600}.chook{font-size:.9rem;color:var(--mu)}.cf{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:8px;flex-wrap:wrap}.priceb b{font-size:1.1rem}.priceb small{display:block;color:var(--mu)}
+.pcd{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--sh)}.pcd-t{font-size:.78rem;font-weight:700;color:var(--mag);text-transform:uppercase;letter-spacing:.05em}.pcd h3 a{color:var(--tx)}.pcd p{color:var(--mu);margin:0}.pcd-f{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.pcd-f span{display:block;color:var(--mu);font-size:.82rem}
+.stairs{list-style:none;display:flex;gap:6px;padding:0;margin:0;flex-wrap:wrap}.stairs li{display:flex;align-items:center;gap:6px;font-size:.78rem;background:var(--bg2);border-radius:999px;padding:3px 10px 3px 4px}.stairs span{background:var(--navy);color:#fff;border-radius:50%;width:20px;height:20px;display:grid;place-items:center;font-size:.72rem}
+.sclist{display:grid;gap:12px}.sc{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;flex-wrap:wrap}.sc-d{background:var(--navy);color:#fff;border-radius:12px;padding:8px 14px;text-align:center;min-width:64px}.sc-d b{display:block;font-size:1.5rem;line-height:1}.sc-d span{font-size:.78rem;text-transform:uppercase}.sc-b{flex:1;min-width:200px}.sc-b h3{margin:4px 0}
+.how{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.how li{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:18px}.how b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--mag);color:#fff;margin-bottom:8px}.how h3{margin-bottom:4px}
+.faq{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:0 16px;margin-bottom:8px}.faq summary{cursor:pointer;font-weight:600;padding:14px 0}.faq p{color:var(--mu)}
+/* fiche formation */
+.cols{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start}@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.side .buy{position:sticky;top:84px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:20px;box-shadow:var(--sh)}.buy-p b{font-size:1.7rem}.buy-p span{margin-left:8px;color:var(--mu)}.buy .btn{width:100%;margin:12px 0}.inc{padding-left:18px;color:var(--mu);font-size:.9rem;margin:0}
+.chk{padding-left:0;list-style:none;counter-reset:c}.chk li{position:relative;padding-left:30px;margin-bottom:8px}.chk li:before{content:"✓";position:absolute;left:0;top:0;color:#fff;background:var(--mag);width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:.75rem}
+.mod{background:var(--card);border:1px solid var(--bd);border-radius:12px;margin-bottom:8px;padding:0 14px}.mod summary{display:flex;gap:10px;align-items:center;cursor:pointer;padding:12px 0}.mod summary b{flex:1}.mn{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.85rem}.mod ul{list-style:none;padding:0;margin:0 0 10px}.mod li{display:flex;gap:10px;align-items:center;padding:6px 0;border-top:1px solid var(--bd);font-size:.92rem}.mod li em{margin-left:auto;color:var(--mu);font-style:normal;font-size:.82rem}
+.lt{font-size:.7rem;font-weight:700;border-radius:6px;padding:2px 8px;background:var(--bg2);color:var(--mu);min-width:62px;text-align:center}.lt.video{background:#E8E6FA;color:var(--navy)}.lt.devoir{background:var(--wnb);color:var(--wn)}.lt.quiz{background:var(--okb);color:var(--ok)}
+.cert-mini{background:var(--bg2);border:2px solid var(--mag);border-radius:var(--r);padding:18px;display:grid;gap:4px}.rich ul{padding-left:20px}.rich p{margin-bottom:.7em}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:20px;margin-bottom:16px;box-shadow:var(--sh)}.card.sum{margin-bottom:16px}.sum-p{margin-top:8px;font-size:1.2rem}.okc{border-color:var(--ok)}.badc{border-color:var(--bad);background:var(--badb)}.codebox{font:700 1.7rem ui-monospace,Menlo,monospace;letter-spacing:.1em;background:var(--bg2);border:2px dashed var(--mag);border-radius:12px;padding:14px;text-align:center;margin:10px 0;word-break:break-all}
+.vf input{flex:1;min-width:200px}.leadf{display:grid;gap:8px}.leadf input{padding:8px 10px;min-height:40px}
+/* pied de page */
+.ft{background:var(--navy);color:#d7d3f7;padding:40px 0 20px;margin-top:20px}.ft a{color:#fff}.ft h4{color:#fff}.ftg{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;gap:24px}@media(max-width:860px){.ftg{grid-template-columns:1fr 1fr}}@media(max-width:560px){.ftg{grid-template-columns:1fr}}.ftg a,.ftg span{display:block;margin-bottom:6px}.ftlogo img{height:44px}.ftb{border-top:1px solid rgba(255,255,255,.2);margin-top:24px;padding-top:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.85rem}.ft input{background:#fff;color:#1d1a3a}
+/* espace apprenant */
+.pl{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}@media(max-width:900px){.pl{grid-template-columns:1fr}}
+.pl-side{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;position:sticky;top:80px;max-height:calc(100vh - 100px);overflow:auto}@media(max-width:900px){.pl-side{position:static;max-height:none}}
+.pm ul{list-style:none;padding:0;margin:4px 0 10px}.pm a{display:flex;gap:8px;align-items:center;padding:6px 8px;border-radius:8px;color:var(--tx);font-size:.9rem}.pm a[aria-current=true]{background:var(--bg2);font-weight:700}
+.ck{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd);display:inline-grid;place-items:center;font-size:.7rem;font-style:normal;flex:none}.ck.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.pbar,.bar{height:8px;background:var(--bg2);border-radius:999px;overflow:hidden;margin:8px 0}.pbar i,.bar i{display:block;height:100%;background:var(--mag)}
+.vid{position:relative;padding-top:56.25%;border-radius:var(--r);overflow:hidden;background:#000;margin-bottom:14px}.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ans{background:var(--okb);border-radius:10px;padding:10px 14px;margin:10px 0}.qz{border:1px solid var(--bd);border-radius:12px;margin:0 0 12px;padding:12px 16px}.qz legend{font-weight:700;padding:0 6px}.opt{display:flex;gap:8px;padding:6px 0;align-items:center}.ask{margin-top:30px;border-top:1px solid var(--bd);padding-top:10px}
+.certificate{background:#fff;color:#29235C;border:10px double #E6007E;padding:40px 30px;text-align:center;border-radius:6px}.certificate h2{font-size:2rem;margin:.2em 0}.certificate h3{color:#E6007E}.certificate .muted{color:#625f7a}.ct-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:8px}.ct-top img{height:44px}.ct-top span{font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#E6007E}.ct-f{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:28px;border-top:1px solid #ddd;padding-top:14px}.ct-f small{display:block;color:#625f7a}
+/* gestion */
+.adm{display:grid;grid-template-columns:250px 1fr;min-height:100vh}@media(max-width:900px){.adm{grid-template-columns:1fr}}
+.aside{background:var(--navy);color:#fff;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column}@media(max-width:900px){.aside{position:static;height:auto}.aside nav{display:flex;flex-wrap:wrap;gap:4px}}
+.alogo img{height:42px}.asub{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin:10px 8px 8px}.aside nav a{display:block;color:#fff;padding:9px 12px;border-radius:8px;font-size:.92rem}.aside nav a:hover{background:rgba(255,255,255,.1);text-decoration:none}.aside nav a[aria-current=page]{background:var(--mag)}
+.afoot{margin-top:auto;padding-top:14px;display:grid;gap:8px;font-size:.88rem}.afoot a,.afoot .lnk{color:#d7d3f7;text-align:left}
+.amain{padding:24px;min-width:0;background:var(--bg2)}.atop{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}.atop h1{font-size:1.6rem;margin:0}.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.monl{min-width:140px;text-align:center;text-transform:capitalize}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}.kpi{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px}.kpi b{display:block;font-size:1.5rem}.kpi span{font-size:.85rem;color:var(--mu)}.kpi.warn{border-color:var(--wn)}.kpi.bad{border-color:var(--bad)}.kpi.bad b{color:var(--bad)}
+.tbw{overflow-x:auto}.tb{width:100%;border-collapse:collapse;font-size:.92rem}.tb th{text-align:left;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mu);padding:8px 10px;border-bottom:2px solid var(--bd)}.tb td{padding:10px;border-bottom:1px solid var(--bd);vertical-align:top}.tb tr.clk{cursor:pointer}.tb tr.clk:hover{background:var(--bg2)}
+.blk{border:1px solid var(--bd);border-radius:12px;padding:14px;margin:12px 0;background:var(--bg)}.les{border-top:1px dashed var(--bd);padding-top:12px;margin-top:12px}.ln{padding:8px 0;border-bottom:1px solid var(--bd)}.todo{padding-left:18px}.todo li{margin-bottom:6px}.todo li.late a{color:var(--bad)}
+.pj{display:block;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px;color:var(--tx);text-decoration:none!important}.pj:hover{border-color:var(--mag)}
+.kan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}@media(max-width:1000px){.kan{grid-template-columns:1fr}}.kcol{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:12px}.kcol h2{font-size:1rem;margin:0}.task{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--bd);border-radius:10px;padding:10px;margin-top:10px}.task.p-haute{border-left-color:var(--bad)}.task.p-normale{border-left-color:var(--navy)}.task.p-basse{border-left-color:var(--ok)}.task.late{background:var(--badb)}.task .g{grid-template-columns:1fr 1fr}.task .fld{margin-bottom:6px}.task input,.task select{min-height:38px;padding:6px 8px;font-size:.88rem}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.ch{font-size:.75rem;font-weight:700;text-align:center;color:var(--mu)}.cd{min-height:92px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:4px;overflow:hidden}.cd.out{background:transparent;border:0}.cd.now{border:2px solid var(--mag)}.dn{font-size:.78rem;font-weight:700;color:var(--mu)}
+.ev{display:block;font-size:.7rem;line-height:1.25;padding:1px 4px;border-radius:4px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff!important;text-decoration:none!important}.ev.s,.lg.s{background:var(--navy)}.ev.t,.lg.t{background:#2f7fb8}.ev.l,.lg.l{background:var(--bad)}.ev.p,.lg.p{background:var(--mag)}.lg{display:inline-block;width:12px;height:12px;border-radius:3px;margin:0 4px 0 10px;vertical-align:middle}
+@media(max-width:640px){.cd{min-height:60px}.ev{font-size:.62rem}.amain{padding:14px}}
+.lockbox{max-width:380px;margin:12vh auto;padding:0 16px}
+.modal-bg{position:fixed;inset:0;background:rgba(10,8,30,.6);display:grid;place-items:center;z-index:60;padding:16px}.modal{background:var(--card);border-radius:var(--r);padding:24px;max-width:520px;width:100%;max-height:90vh;overflow:auto}.modal.wide{max-width:760px}
+@media print{.noprint,.hd,.ft{display:none!important}body{background:#fff}.sec{padding:0}.certificate{border-width:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.hero .tg.lv{background:var(--mag);border-color:var(--mag)}.hero .cm{margin-bottom:10px}.hero .row{margin-top:14px}
+.calc{display:flex;gap:10px;align-items:center;min-height:44px}
+.vid.file{padding-top:0;background:#000}.vid.file video{display:block;width:100%;max-height:70vh}
+</style></head><body><div id="app"></div><script id="appjs">var LOGO_L='data:image/png;base64,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',LOGO_D='data:image/png;base64,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';
+/* =================== NOYAU =================== */
+var KEY='gscLms_v1',KEYB='gscLms_bak_v1',KEYPIN='gscLms_pin',KEYLRN='gscLms_learner';
+var VITRINE=!!window.__VITRINE__;
+var DB=null,UI={modal:'',tt:0,f:{cat:'',lvl:'',fmt:'',q:''},adm:{kan:'',ed:''},msg:''};
+var LEVELS=['Essentiel','Pratique','Avancé','Métier','Expert'];
+var CATS=['Entrepreneuriat','Marketing digital','Vente et service client','Gestion et finance','Gestion de projet','Outils numériques','Leadership'];
+var FORMATS=['En ligne','Présentiel','Mixte'];
+var TSTAT=[['todo','À faire'],['doing','En cours'],['done','Terminé']];
+var PRIO=[['haute','Haute'],['normale','Normale'],['basse','Basse']];
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function p2(n){return (n<10?'0':'')+n;}
+function today(){var d=new Date();return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());}
+function addDays(iso,n){var d=new Date(iso+'T12:00:00');d.setDate(d.getDate()+n);return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());}
+function fd(iso,short){if(!iso)return '—';var d=new Date(String(iso).slice(0,10)+'T12:00:00');if(isNaN(d))return '—';return d.toLocaleDateString('fr-FR',short?{day:'numeric',month:'short'}:{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+function digits(s){return String(s||'').replace(/\D+/g,'');}
+function waNum(t){var d=digits(t);if(d.length===9&&d.charAt(0)==='7')d='221'+d;return d;}
+function safeUrl(u){u=String(u||'').trim();return /^https?:\/\//i.test(u)?u:'';}
+function money(n){n=Math.round(+n||0);return n===0?'Gratuit':String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' FCFA';}
+function eur(n){n=+n||0;return n?Math.round(n/655.957)+' €':'';}
+function slugify(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60)||'x';}
+function toast(m){var e=$('#toast');if(e)e.remove();var t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.appendChild(t);clearTimeout(UI.tt);UI.tt=setTimeout(function(){t.remove();},3400);}
+function h53(s){var a=0xdeadbeef,b=0x41c6ce57;for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677);}a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return String(4294967296*(2097151&b)+(a>>>0));}
+function download(name,text,type){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type||'text/plain'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},800);}
+function rcode(n){var c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',s='',b=new Uint8Array(n);(window.crypto||{getRandomValues:function(a){for(var i=0;i<a.length;i++)a[i]=Math.random()*256;}}).getRandomValues(b);for(var i=0;i<n;i++)s+=c.charAt(b[i]%c.length);return s;}
+function wa(tel,msg){var n=waNum(tel);return n?'https://wa.me/'+n+'?text='+encodeURIComponent(msg):'';}
+function stars(n){return n;}
+function mdLite(t){ /* texte simple : paragraphes, puces, **gras** */
+  var out=[],lst=false;String(t||'').split('\n').forEach(function(l){
+    var s=esc(l).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    if(/^\s*[-•]\s+/.test(l)){if(!lst){out.push('<ul>');lst=true;}out.push('<li>'+s.replace(/^\s*[-•]\s+/,'')+'</li>');}
+    else{if(lst){out.push('</ul>');lst=false;}if(l.trim())out.push('<p>'+s+'</p>');}
+  });if(lst)out.push('</ul>');return out.join('');
+}
+/* ---------- données ---------- */
+function load(){
+  if(VITRINE){DB=window.__DATA__;return;}
+  var raw=null;try{raw=localStorage.getItem(KEY);}catch(e){}
+  if(raw){try{var o=JSON.parse(raw);if(o&&o.courses&&o.settings){DB=o;migrate();return;}}catch(e){}}
+  DB=seed();save();
+}
+function migrate(){DB.courses.forEach(function(c){if(c.extraHours===undefined)fitDur(c,+c.hours||0);});var d=seed().settings;Object.keys(d).forEach(function(k){if(DB.settings[k]===undefined)DB.settings[k]=d[k];});['leads','questions','certs'].forEach(function(k){if(!DB[k])DB[k]=[];});}
+function save(){if(VITRINE)return;try{var old=localStorage.getItem(KEY);if(old)localStorage.setItem(KEYB,old);localStorage.setItem(KEY,JSON.stringify(DB));}catch(e){toast('Enregistrement impossible : le navigateur refuse. Exportez une sauvegarde.');}}
+function byId(list,id){for(var i=0;i<list.length;i++)if(list[i].id===id)return list[i];return null;}
+function course(id){return byId(DB.courses,id);}
+function pathOf(c){return c&&c.path?byId(DB.paths,c.path):null;}
+function learner(id){return byId(DB.learners,id);}
+function enr(id){return byId(DB.enrollments,id);}
+function courseBySlug(s){for(var i=0;i<DB.courses.length;i++)if(DB.courses[i].slug===s)return DB.courses[i];return null;}
+function pathBySlug(s){for(var i=0;i<DB.paths.length;i++)if(DB.paths[i].slug===s)return DB.paths[i];return null;}
+function lessonsOf(c){var o=[];(c.modules||[]).forEach(function(m,mi){(m.lessons||[]).forEach(function(l,li){o.push({m:m,mi:mi,l:l,li:li});});});return o;}
+function nbLessons(c){return lessonsOf(c).length;}
+function modsInfo(c){var n=nbLessons(c),ex=lessonsOf(c).filter(function(x){return x.l.type==='devoir';}).length;return (c.modules||[]).length+' modules · '+n+' leçons'+(ex?' · '+ex+' exercices':'');}
+function fmtIcon(f){return f==='Présentiel'?'En présentiel':f==='Mixte'?'Mixte':'En ligne';}
+function progressOf(e){var c=course(e.courseId);if(!c)return 0;var L=lessonsOf(c);if(!L.length)return 0;var n=0;L.forEach(function(x){if(e.done&&e.done[x.l.id])n++;});return Math.round(n/L.length*100);}
+function quizOf(c){return (c.quiz&&c.quiz.length)?c.quiz:(DB.bank[c.cat]||[]);}
+function canCertify(e){var c=course(e.courseId);if(!c||e.status!=='payé')return false;if(progressOf(e)<100)return false;var q=quizOf(c);if(c.certificate===false)return false;if(q.length&&!(e.quiz&&e.quiz.score>=60))return false;return true;}
+function issueCert(e){
+  if(e.cert)return e.cert;var l=learner(e.learnerId),c=course(e.courseId);
+  var code='GSC-'+new Date().getFullYear()+'-'+rcode(6);
+  e.cert={code:code,date:today()};
+  DB.certs.push({code:code,name:l.name,course:c.title,hours:hoursOf(c),date:today(),level:c.level});save();return e.cert;
+}
+function nextSessions(courseId){var t=today();return DB.sessions.filter(function(s){return (!courseId||s.courseId===courseId)&&s.status!=='annulée'&&s.start>=t;}).sort(function(a,b){return a.start<b.start?-1:1;});}
+function sessionFull(s){var n=DB.enrollments.filter(function(e){return e.sessionId===s.id&&e.status!=='annulé';}).length;return {n:n,left:Math.max(0,(+s.capacity||0)-n)};}
+function priceOf(c){return +c.price||0;}
+
+/* ---------- durées : calculées à partir des leçons ---------- */
+function hoursOf(c){var m=0;lessonsOf(c).forEach(function(x){m+=+x.l.dur||0;});var h=m/60+(+c.extraHours||0);return h?Math.max(0.5,Math.round(h*2)/2):0;}
+function hh(c){return String(hoursOf(c)).replace('.',',');}
+function fitDur(c,target){ /* adapte les durées d'exemple pour que le total corresponde à la durée annoncée */
+  var L=lessonsOf(c),m=0;L.forEach(function(x){m+=+x.l.dur||0;});
+  var share=c.format==='En ligne'?1:(c.format==='Mixte'?0.6:0.2),want=target*60*share,k=m?want/m:1;
+  L.forEach(function(x){if(!x.l.durAuto)x.l.dur=Math.max(3,Math.round(x.l.dur*k/5)*5);});
+  var s=0;L.forEach(function(x){s+=+x.l.dur||0;});c.extraHours=Math.max(0,Math.round((target-s/60)*2)/2);
+}
+var YTP=null;
+function ytReady(){if(YTP)return YTP;YTP=new Promise(function(res,rej){if(window.YT&&YT.Player)return res();var t=setTimeout(function(){rej();},8000);window.onYouTubeIframeAPIReady=function(){clearTimeout(t);res();};var s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';s.onerror=function(){rej();};document.head.appendChild(s);});return YTP;}
+function detectDur(url){ /* secondes, ou 0 si le lien ne permet pas de la lire */
+  url=safeUrl(url);if(!url)return Promise.resolve(0);var m;
+  if((m=/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{6,})/.exec(url))){
+    return ytReady().then(function(){return new Promise(function(res){var host=document.createElement('div');host.style.cssText='position:fixed;left:-9999px;width:200px;height:120px';var inner=document.createElement('div');host.appendChild(inner);document.body.appendChild(host);var done=false;function fin(v){if(done)return;done=true;try{host.remove();}catch(e){}res(v);}
+      setTimeout(function(){fin(0);},10000);
+      new YT.Player(inner,{videoId:m[1],events:{onReady:function(e){var n=0;(function poll(){var d=e.target.getDuration();if(d>0)fin(d);else if(n++<10)setTimeout(poll,500);else fin(0);})();},onError:function(){fin(0);}}});});}).catch(function(){return 0;});
+  }
+  if((m=/(?:cloudflarestream\.com|videodelivery\.net)\/(?:embed\/[\w.]+\/)?([0-9a-f]{32})/i.exec(url)))return new Promise(function(res){
+    var ifr=document.createElement('iframe');ifr.style.cssText='position:fixed;left:-9999px;width:200px;height:120px';ifr.src='https://iframe.videodelivery.net/'+m[1];ifr.allow='autoplay';var done=false;
+    function fin(v){if(done)return;done=true;try{ifr.remove();}catch(e){}res(v);}setTimeout(function(){fin(0);},12000);
+    var s=document.createElement('script');s.src='https://embed.cloudflarestream.com/embed/sdk.latest.js';s.onerror=function(){fin(0);};
+    s.onload=function(){document.body.appendChild(ifr);try{var pl=Stream(ifr);pl.addEventListener('loadedmetadata',function(){fin(pl.duration||0);});pl.addEventListener('durationchange',function(){if(pl.duration>0)fin(pl.duration);});}catch(e){fin(0);}};
+    document.head.appendChild(s);});
+  if(/vimeo\.com\//.test(url))return fetch('https://vimeo.com/api/oembed.json?url='+encodeURIComponent(url)).then(function(r){return r.json();}).then(function(j){return +j.duration||0;}).catch(function(){return 0;});
+  if(/\.(mp4|webm|m4v|mov|mp3|m4a|wav|ogg)(\?|#|$)/i.test(url)||/^data:(audio|video)/.test(url))return new Promise(function(res){var v=document.createElement('video');v.preload='metadata';var t=setTimeout(function(){res(0);},10000);v.onloadedmetadata=function(){clearTimeout(t);res(isFinite(v.duration)?v.duration:0);};v.onerror=function(){clearTimeout(t);res(0);};v.src=url;});
+  return Promise.resolve(0);
+}
+function autoDur(cid,lid){
+  var c=course(cid),L=c&&lessonsOf(c).filter(function(x){return x.l.id===lid;})[0];if(!L||L.l.type!=='video'||!L.l.url)return;
+  toast('Calcul de la durée de la vidéo…');
+  detectDur(L.l.url).then(function(sec){
+    if(sec>0){L.l.dur=Math.max(1,Math.ceil(sec/60));L.l.durAuto=true;save();toast('Durée détectée : '+L.l.dur+' min. La durée de la formation est mise à jour.');render();}
+    else toast('Durée non lisible pour ce lien (Google Drive, par exemple) : saisissez-la à la main.');
+  });
+}
+/* ---------- envoi au service Google (facultatif) ---------- */
+function sendOrder(o){
+  var u=safeUrl(DB.settings.svcUrl);if(!u)return Promise.resolve(false);
+  return fetch(u,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}).then(function(r){return r.json();}).then(function(r){return r.status==='ok';}).catch(function(){return false;});
+}
+/* ---------- routage ---------- */
+function route(){var h=(location.hash||'#/').replace(/^#\/?/,'').split('?')[0].split('/').map(function(x){try{return decodeURIComponent(x);}catch(e){return x;}});return {v:h[0]||'home',a:h[1]||'',b:h[2]||'',c:h[3]||''};}
+function go(h){location.hash=h;}
+function modal(inner,wide){UI.modal='<div class="modal-bg" data-act="close-bg"><div class="modal'+(wide?' wide':'')+'" role="dialog" aria-modal="true">'+inner+'</div></div>';render();}
+function closeModal(){UI.modal='';render();}
+function curLearner(){var id=null;try{id=sessionStorage.getItem(KEYLRN);}catch(e){}return id?learner(id):null;}
+function isAdmin(){try{return sessionStorage.getItem('gscLmsAdm')==='1';}catch(e){return false;}}
+function hasPin(){try{return !!localStorage.getItem(KEYPIN);}catch(e){return false;}}
+
+/* =================== CONTENU DE DÉPART (exemple, modifiable) =================== */
+function seed(){
+  var T=today();
+  function mods(s){return s.split(';;').map(function(m){var p=m.split('::');return {id:uid(),title:p[0].trim(),desc:'',lessons:p[1].split('|').map(function(t){t=t.trim();var type='video',dur=10;
+    if(/^Quiz/i.test(t)){type='quiz';dur=5;}else if(/^(Exercice|Projet)/i.test(t)){type='devoir';dur=25;}else if(/^Lecture/i.test(t)){type='texte';dur=8;}
+    return {id:uid(),title:t,type:type,dur:dur,url:'',content:type==='texte'?'Contenu de la lecture à rédiger dans l’espace de gestion.':(type==='devoir'?'Consigne de l’exercice à rédiger dans l’espace de gestion. Le formateur corrige et donne son retour.':'')};})};});}
+  var courses=[];
+  function C(slug,title,cat,level,fmt,hours,price,path,pos,hook,obj,pre,m,pop){
+    courses.push({id:'c_'+slug,slug:slug,title:title,cat:cat,level:level,format:fmt,hours:hours,price:price,path:path,pos:pos,hook:hook,objectives:obj,prereq:pre,audience:'Entrepreneurs, porteurs de projet et salariés qui veulent passer à l’action.',tools:[],modules:mods(m),trainer:'Équipe GSC Business Center',published:true,popular:!!pop,certificate:true,faq:[],desc:''});
+    fitDur(courses[courses.length-1],hours);
+  }
+  /* Parcours A : entrepreneuriat */
+  C('clarifier-idee-offre','Clarifier son idée et son offre','Entrepreneuriat','Essentiel','En ligne',8,25000,'p_entre',1,'Transformez une idée floue en une offre claire que l’on comprend en dix secondes.',['Formuler votre mission, votre cible et le problème que vous résolvez','Rédiger une offre de valeur simple','Choisir un nom et une promesse'],['Aucun'],
+    'Comprendre son projet::Pourquoi clarifier avant d’agir|Votre mission en une phrase|Exercice : fiche de clarification;;Connaître son client::Qui est votre client idéal|Le problème à résoudre|Exercice : fiche persona;;Construire l’offre::Promesse et bénéfices|Prix et formules|Exercice : votre offre en une page|Quiz final',1);
+  C('valider-marche-premiers-clients','Valider son marché et trouver ses premiers clients','Entrepreneuriat','Pratique','Mixte',12,50000,'p_entre',2,'Vérifiez qu’on veut acheter votre offre, puis allez chercher vos premiers clients.',['Faire une étude de marché rapide','Tester votre offre auprès de vrais clients','Obtenir vos premières ventes'],['Avoir une idée d’offre'],
+    'Étudier le marché::Demande, concurrence, prix|Mener 10 entretiens clients|Exercice : synthèse du marché;;Tester l’offre::Le test à petit budget|Mesurer les réponses|Exercice : votre test;;Trouver des clients::Prospection simple|Réseaux et bouche-à-oreille|Exercice : plan de prospection|Quiz final',1);
+  C('structurer-business','Structurer son business : modèle économique, prix et processus','Entrepreneuriat','Avancé','Présentiel',14,75000,'p_entre',3,'Mettez de l’ordre : comment l’entreprise gagne de l’argent et fonctionne au quotidien.',['Remplir un Business Model Canvas','Fixer des prix rentables','Décrire vos processus clés'],['Avoir validé son offre'],
+    'Le modèle économique::Le Business Model Canvas|Sources de revenus|Exercice : votre canvas;;Les prix::Calculer ses coûts|Fixer sa marge|Exercice : grille tarifaire;;Les processus::Décrire une tâche pas à pas|Standardiser sa mission|Exercice : fiches de processus|Quiz final');
+  C('vendre-conclure','Vendre et conclure : de la prospection au contrat','Entrepreneuriat','Métier','Mixte',20,100000,'p_entre',4,'Menez un client de la première conversation jusqu’à la signature.',['Conduire un entretien de vente en 4 temps','Faire un devis clair','Rédiger un contrat ou un bon de commande'],['Avoir déjà une offre'],
+    'La conversation de vente::Écouter avant de proposer|La trame en 4 temps|Exercice : jeu de rôle;;Le devis::Structurer un devis|Gérer les objections|Exercice : votre modèle de devis;;Conclure::Relancer sans harceler|Le contrat ou bon de commande|Exercice : votre contrat|Quiz final');
+  C('piloter-developper-entreprise','Piloter et développer son entreprise','Entrepreneuriat','Expert','Mixte',40,200000,'p_entre',5,'Pilotez par les chiffres et préparez la croissance de votre entreprise.',['Suivre un tableau de bord mensuel','Déléguer et automatiser','Préparer un plan sur trois ans'],['Avoir une activité qui génère des ventes'],
+    'Piloter::Les indicateurs qui comptent|Le tableau de bord mensuel|Exercice : votre tableau de bord;;Organiser::Déléguer par fonction|Automatiser les tâches|Exercice : plan de délégation;;Grandir::Vision à trois ans|Financer la croissance|Projet final : plan stratégique|Quiz final');
+  C('de-l-idee-a-3-premiers-clients','De l’idée à vos 3 premiers clients en 30 jours (formation gratuite)','Entrepreneuriat','Essentiel','En ligne',6,0,null,0,'Une journée en direct pour clarifier votre offre et décrocher vos trois premiers clients.',['Clarifier votre offre','Trouver vos premiers prospects','Conclure vos trois premières ventes'],['Aucun'],
+    'Session 1 : Clarifier votre offre::Votre offre en une phrase|Exercice : fiche offre;;Session 2 : Trouver vos prospects::Où sont vos clients|Exercice : liste de 20 contacts;;Session 3 : Conclure::Les 4 temps de la vente|Quiz final',1);
+  /* Parcours B : marketing digital */
+  C('visibilite-locale-whatsapp','Visibilité locale : Google Maps et WhatsApp Business','Marketing digital','Essentiel','En ligne',6,25000,'p_mark',1,'Soyez trouvé par les clients de votre quartier et répondez-leur sur WhatsApp.',['Créer votre fiche Google Maps','Configurer WhatsApp Business','Répondre vite et bien aux clients'],['Un smartphone'],
+    'Google Maps::Créer sa fiche|Photos et avis|Exercice : votre fiche;;WhatsApp Business::Profil et catalogue|Messages automatiques|Exercice : votre catalogue|Quiz final');
+  C('reseaux-sociaux-pme','Réseaux sociaux pour PME','Marketing digital','Pratique','En ligne',10,50000,'p_mark',2,'Publiez régulièrement des contenus qui attirent des clients, sans y passer vos journées.',['Choisir les bons réseaux','Planifier un calendrier éditorial','Créer des publications simples'],['Avoir une page ou un compte'],
+    'Stratégie::Choisir ses réseaux|Définir sa ligne éditoriale|Exercice : stratégie réseaux;;Contenu::Le calendrier éditorial|Créer visuels et vidéos courtes|Exercice : 10 publications;;Communauté::Répondre et animer|Mesurer les résultats|Quiz final',1);
+  C('publicite-meta-tiktok','Publicité en ligne : Meta et TikTok','Marketing digital','Avancé','En ligne',14,75000,'p_mark',3,'Lancez des publicités rentables avec un petit budget.',['Créer une campagne Meta','Installer un pixel de suivi','Analyser le coût par client'],['Une page professionnelle'],
+    'Bases de la publicité::Comment fonctionne la pub|Définir la cible et le budget|Exercice : plan de campagne;;Créer et suivre::Créer une campagne|Installer le pixel|Exercice : votre première campagne;;Optimiser::Lire les résultats|Améliorer le coût par client|Quiz final',1);
+  C('tunnels-vente-emailing','Tunnels de vente et e-mailing','Marketing digital','Métier','Mixte',20,100000,'p_mark',4,'Construisez un parcours en ligne qui convertit les visiteurs en acheteurs.',['Concevoir un tunnel de vente','Écrire une séquence e-mail','Brancher les paiements'],['Avoir une offre claire'],
+    'Concevoir::Le parcours client|Les pages du tunnel|Exercice : plan du tunnel;;Automatiser::Séquences e-mail|Messages WhatsApp|Exercice : votre séquence;;Encaisser::Paiement en ligne|Tests avant lancement|Quiz final');
+  C('specialiste-marketing-numerique','Spécialiste du marketing numérique','Marketing digital','Expert','Mixte',60,200000,'p_mark',5,'Devenez capable de piloter toute la stratégie marketing digitale d’une entreprise.',['Construire une stratégie complète','Piloter publicité, contenu et e-mailing','Présenter des résultats à un client'],['Avoir suivi les niveaux précédents ou équivalent'],
+    'Stratégie::Diagnostic marketing|Plan marketing annuel|Exercice : plan marketing;;Acquisition::Contenu et SEO|Publicité payante|Exercice : plan d’acquisition;;Pilotage::Tableau de bord marketing|Rapport client|Projet final : mission complète|Quiz final');
+  /* Parcours C : gestion de projet et leadership */
+  C('bases-gestion-projet','Les bases de la gestion de projet','Gestion de projet','Essentiel','En ligne',8,25000,'p_proj',1,'Comprenez comment un projet réussit : objectif, délai, budget et équipe.',['Définir l’objectif d’un projet','Découper un projet en tâches','Identifier les parties prenantes'],['Aucun'],
+    'Comprendre un projet::Qu’est-ce qu’un projet|Objectif, délai, budget|Exercice : fiche projet;;Découper::Les phases d’un projet|Tâches et livrables|Exercice : découpage;;Les acteurs::Qui fait quoi|Communiquer|Quiz final',1);
+  C('planifier-taches-delais','Planifier : tâches, délais et ressources','Gestion de projet','Pratique','Mixte',10,50000,'p_proj',2,'Construisez un planning réaliste que votre équipe peut suivre.',['Estimer les durées','Construire un calendrier','Répartir les tâches'],['Connaître les bases du projet'],
+    'Estimer::Durées et charges|Dépendances entre tâches|Exercice : estimation;;Planifier::Le calendrier de projet|Le diagramme de Gantt|Exercice : votre planning;;Répartir::Assigner les tâches|Suivre l’avancement|Quiz final');
+  C('piloter-projet-risques','Piloter un projet : suivi, risques et reporting','Gestion de projet','Avancé','Présentiel',14,75000,'p_proj',3,'Gardez le cap : suivez l’avancement, anticipez les risques, rendez compte.',['Suivre avec un tableau de bord','Gérer les risques','Rédiger un rapport d’avancement'],['Avoir planifié un projet'],
+    'Suivre::Indicateurs de projet|Réunions de suivi|Exercice : tableau de suivi;;Risques::Identifier les risques|Plans de réponse|Exercice : registre des risques;;Rendre compte::Le rapport d’avancement|Clôturer un projet|Quiz final');
+  C('manager-equipe','Manager une équipe','Leadership','Métier','Présentiel',18,100000,'p_proj',4,'Motivez, déléguez et réglez les conflits avec assurance.',['Déléguer efficacement','Conduire une réunion','Gérer un conflit'],['Encadrer ou vouloir encadrer'],
+    'Diriger::Style de management|Fixer des objectifs|Exercice : plan de délégation;;Communiquer::Réunions efficaces|Feedback constructif|Exercice : entretien de feedback;;Régler::Gérer un conflit|Motiver dans la durée|Quiz final');
+  C('leadership-changement','Leadership et conduite du changement','Leadership','Expert','Mixte',35,200000,'p_proj',5,'Entraînez une organisation dans le changement, sans perdre votre équipe.',['Clarifier une vision','Conduire un changement','Mesurer les résultats'],['Avoir managé une équipe'],
+    'Vision::Définir une vision|La partager|Exercice : discours de vision;;Changer::Résistances au changement|Plan de conduite du changement|Exercice : votre plan;;Ancrer::Mesurer et ajuster|Pérenniser|Projet final : plan de changement|Quiz final');
+  var paths=[
+    {id:'p_entre',slug:'entrepreneuriat',title:'Entrepreneuriat : de l’idée à l’entreprise',hook:'De la première idée à une entreprise qui tourne, en cinq formations.',why:'Ce parcours suit le chemin réel d’un entrepreneur : clarifier, valider, structurer, vendre, piloter. Chaque niveau donne un certificat vérifiable.',audience:'Porteurs de projet, entrepreneurs débutants, TPE.',outcomes:['Clarifier votre offre et votre client','Valider votre marché et décrocher vos premières ventes','Structurer prix et processus','Vendre et conclure','Piloter et développer votre entreprise'],fullPrice:0,price:450000},
+    {id:'p_mark',slug:'marketing-digital',title:'Marketing digital et réseaux',hook:'Soyez visible, attirez et vendez en ligne, en cinq formations.',why:'Un parcours progressif pour apprendre à attirer des clients avec Google, WhatsApp, les réseaux sociaux et la publicité.',audience:'Commerçants, PME, futurs community managers.',outcomes:['Être trouvé localement','Animer les réseaux sociaux','Lancer des publicités rentables','Construire un tunnel de vente','Piloter une stratégie complète'],fullPrice:0,price:350000},
+    {id:'p_proj',slug:'gestion-de-projet-leadership',title:'Gestion de projet et leadership',hook:'Planifiez, pilotez et dirigez vos projets et vos équipes, en cinq formations.',why:'Pour celles et ceux qui doivent livrer des projets dans les délais et mener une équipe.',audience:'Chefs de projet, responsables, entrepreneurs avec une équipe.',outcomes:['Découper un projet','Planifier tâches et délais','Piloter et gérer les risques','Manager une équipe','Conduire le changement'],fullPrice:0,price:350000}
+  ];
+  paths.forEach(function(p){var s=0;courses.forEach(function(c){if(c.path===p.id)s+=c.price;});p.fullPrice=s;});
+  /* banque de quiz par catégorie */
+  var Q=function(q,o,a){return {q:q,o:o,a:a};};
+  var bank={
+   'Entrepreneuriat':[Q('Que doit contenir une offre claire ?',['Une promesse, une cible et un prix','Seulement un logo','Uniquement des photos'],0),Q('Pourquoi tester son offre avant d’investir ?',['Pour savoir si des clients veulent acheter','Pour retarder le lancement','Pour faire plaisir à ses amis'],0),Q('La marge, c’est…',['Le prix de vente moins les coûts','Le chiffre d’affaires','Le prix des concurrents'],0)],
+   'Marketing digital':[Q('Quel est le but d’un calendrier éditorial ?',['Publier régulièrement avec un objectif','Publier au hasard','Copier les concurrents'],0),Q('Un pixel de suivi sert à…',['Mesurer les visites et les achats','Changer les couleurs du site','Envoyer des e-mails'],0),Q('Avant de lancer une publicité, il faut…',['Définir la cible et le budget','Tout dépenser le premier jour','Éviter de mesurer'],0)],
+   'Vente et service client':[Q('Que faire d’abord dans une vente ?',['Écouter le besoin du client','Annoncer le prix','Parler de soi'],0),Q('Une objection est…',['Une occasion de répondre au doute','Un refus définitif','Une erreur du client'],0),Q('Un bon suivi client…',['Fidélise et génère des recommandations','Est inutile','Se fait une seule fois'],0)],
+   'Gestion et finance':[Q('La trésorerie, c’est…',['L’argent réellement disponible','Le chiffre d’affaires promis','Le capital de départ uniquement'],0),Q('Un budget sert à…',['Anticiper recettes et dépenses','Faire joli','Remplacer la comptabilité'],0),Q('Pour fixer un prix rentable, on part…',['Des coûts et de la marge voulue','Du prix le plus bas du marché','Du hasard'],0)],
+   'Gestion de projet':[Q('Un projet se définit par…',['Un objectif, un délai et un budget','Un logo et un nom','Une équipe nombreuse'],0),Q('Un livrable est…',['Un résultat concret à remettre','Une réunion','Une dépense'],0),Q('Le diagramme de Gantt montre…',['Les tâches dans le temps','Les profits','Les avis clients'],0)],
+   'Outils numériques':[Q('Pourquoi sauvegarder ses fichiers ?',['Pour ne pas perdre son travail','Pour ralentir l’ordinateur','Ce n’est pas utile'],0),Q('Un mot de passe solide est…',['Long et unique','Le prénom','1234'],0),Q('Une automatisation sert à…',['Gagner du temps sur les tâches répétitives','Remplacer le client','Compliquer le travail'],0)],
+   'Leadership':[Q('Déléguer, c’est…',['Confier une tâche avec un objectif clair','Se débarrasser du travail','Surveiller en permanence'],0),Q('Un bon feedback est…',['Précis, factuel et constructif','Vague et critique','Public et humiliant'],0),Q('Face à une résistance au changement, on…',['Écoute et explique le pourquoi','Impose sans parler','Ignore'],0)]
+  };
+  var c1=courses[0],c2=courses[1];
+  var learners=[{id:'l_demo1',name:'Aïssatou Ndiaye',email:'aissatou@exemple.sn',phone:'+221 77 000 00 01',code:'DEMO-AISS',created:addDays(T,-20),refCode:'AISSA1'},{id:'l_demo2',name:'Moussa Ba',email:'moussa@exemple.sn',phone:'+221 76 000 00 02',code:'DEMO-MOUS',created:addDays(T,-3),refCode:'MOUSS2'}];
+  var done={};lessonsOf(c1).slice(0,4).forEach(function(x){done[x.l.id]=true;});
+  var enrollments=[
+    {id:'e_demo1',learnerId:'l_demo1',courseId:c1.id,status:'payé',amount:c1.price,method:'Wave',date:addDays(T,-18),done:done,quiz:null,cert:null,ref:''},
+    {id:'e_demo2',learnerId:'l_demo2',courseId:c2.id,status:'en attente',amount:c2.price,method:'Orange Money',date:addDays(T,-2),done:{},quiz:null,cert:null,ref:'',sessionId:''}
+  ];
+  var sessions=[
+    {id:'s1',courseId:'c_structurer-business',mode:'Présentiel',start:addDays(T,12),end:addDays(T,13),time:'09:00',place:'Thiès · salle de formation GSC',link:'',capacity:15,trainer:'Équipe GSC',status:'ouverte',att:{}},
+    {id:'s2',courseId:'c_manager-equipe',mode:'Présentiel',start:addDays(T,26),end:addDays(T,27),time:'09:00',place:'Dakar · centre partenaire',link:'',capacity:20,trainer:'Équipe GSC',status:'ouverte',att:{}},
+    {id:'s3',courseId:'c_de-l-idee-a-3-premiers-clients',mode:'En ligne en direct',start:addDays(T,7),end:addDays(T,7),time:'09:00',place:'',link:'https://meet.google.com/',capacity:100,trainer:'Équipe GSC',status:'ouverte',att:{}},
+    {id:'s4',courseId:'c_piloter-projet-risques',mode:'Présentiel',start:addDays(T,40),end:addDays(T,42),time:'09:00',place:'Mbour · salle partenaire',link:'',capacity:12,trainer:'Équipe GSC',status:'ouverte',att:{}},
+    {id:'s5',courseId:'c_valider-marche-premiers-clients',mode:'En ligne en direct',start:addDays(T,18),end:addDays(T,18),time:'17:00',place:'',link:'https://meet.google.com/',capacity:50,trainer:'Équipe GSC',status:'ouverte',att:{}}
+  ];
+  function tk(t,a,d,s,p){return {id:uid(),title:t,assignee:a,due:d?addDays(T,d):'',status:s,prio:p||'normale',note:''};}
+  var projects=[
+    {id:'pr1',name:'Lancement de la formation gratuite en direct',status:'en cours',owner:'Moi',start:addDays(T,-5),end:addDays(T,25),desc:'Trois sessions + clôture avec offre participants.',tasks:[tk('Finaliser les supports de la session 1','Moi',2,'doing','haute'),tk('Préparer la page d’inscription','Moi',4,'todo'),tk('Créer les visuels de campagne','Designer',6,'todo'),tk('Envoyer les rappels WhatsApp','Moi',6,'todo','basse'),tk('Dossier de production session 2','Moi',-1,'done')]},
+    {id:'pr2',name:'Production vidéo : Module 1 du parcours certifiant',status:'en cours',owner:'Moi',start:addDays(T,-10),end:addDays(T,30),desc:'Enregistrer, monter et publier les vidéos du module 1.',tasks:[tk('Écrire les scripts des séquences','Moi',3,'doing','haute'),tk('Enregistrer les voix','Moi',8,'todo'),tk('Montage des séquences','Monteur',15,'todo'),tk('Publier sur la plateforme','Moi',25,'todo','basse')]},
+    {id:'pr3',name:'Campagne publicitaire des formations en ligne',status:'planifié',owner:'Moi',start:addDays(T,5),end:addDays(T,45),desc:'Carrousels et vidéos pour les cinq formations.',tasks:[tk('Créer les carrousels','Designer',10,'todo'),tk('Monter les vidéos','Monteur',14,'todo'),tk('Paramétrer les pixels','Moi',12,'todo','haute')]}
+  ];
+  return {v:1,
+    settings:{name:'GSC Business Center',tagline:'Formations en ligne et en présentiel, gestion de projets',wa:'221788228416',email:'consulting.globalservice@gmail.com',phone:'+221 78 822 84 16',address:'Mbour · Thiès · Dakar, Sénégal',pay:'Wave, Orange Money, MTN Money ou carte (via Money Fusion). Votre accès est ouvert sous 24 h ouvrées après le paiement.',payNote:'Indiquez votre nom comme référence du paiement.',svcUrl:'',refPct:20,refDisc:10,calendly:'https://calendly.com/consulting-globalservice/30min'},
+    courses:courses,paths:paths,sessions:sessions,learners:learners,enrollments:enrollments,projects:projects,questions:[],leads:[],certs:[],bank:bank};
+}
+
+/* =================== VITRINE PUBLIQUE =================== */
+var HUE={'Entrepreneuriat':330,'Marketing digital':285,'Vente et service client':20,'Gestion et finance':160,'Gestion de projet':235,'Outils numériques':200,'Leadership':45};
+var LTYPE={video:'Vidéo',texte:'Lecture',quiz:'Quiz',devoir:'Exercice'};
+function S(){return DB.settings;}
+function wlink(msg){return wa(S().wa,msg);}
+function refOf(phone){var d=digits(phone);if(!d)return '';var n=parseInt(h53('ref'+d).slice(0,9),10).toString(36).toUpperCase().replace(/[^A-Z0-9]/g,'');return 'GSC'+(n+'00000').slice(0,5);}
+function refValid(code){code=String(code||'').trim().toUpperCase();if(!/^GSC[A-Z0-9]{5}$/.test(code))return false;if(VITRINE)return true;return (DB.referrers||[]).some(function(r){return r.code===code;})||DB.learners.some(function(l){return refOf(l.phone)===code;});}
+function logo(dark){return '<img src="'+(dark?LOGO_D:LOGO_L)+'" alt="'+esc(S().name)+'">';}
+function header(r){
+  var ln=curLearner();
+  var items=[['Formations','#/','home'],['Parcours','#/parcours','parcours'],['Sessions','#/sessions','sessions'],['Certificat','#/certificat','certificat'],['Parrainage','#/parrainage','parrainage']];
+  return '<header class="hd noprint"><div class="wrap hdin"><a class="brand" href="#/" aria-label="Accueil">'+logo(false)+'</a><button class="burger" data-act="menu" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button><nav class="nav" id="nav" aria-label="Navigation principale">'+items.map(function(i){return '<a href="'+i[1]+'"'+(r.v===i[2]?' aria-current="page"':'')+'>'+i[0]+'</a>';}).join('')+'<a class="btn sm" href="'+(ln?'#/espace':'#/connexion')+'">'+(ln?'Mon espace':'Espace apprenant')+'</a></nav></div></header>';
+}
+function footer(){
+  var s=S();
+  return '<footer class="ft noprint"><div class="wrap"><div class="ftg"><div><div class="ftlogo">'+logo(true)+'</div><p>'+esc(s.tagline)+'</p><p class="small">'+esc(s.address)+'</p></div>'+
+  '<div><h4>Formations</h4><a href="#/">Catalogue</a><a href="#/parcours">Parcours</a><a href="#/sessions">Sessions</a><a href="#/certificat">Vérifier un certificat</a></div>'+
+  '<div><h4>Contact</h4>'+(wlink('Bonjour')?'<a href="'+esc(wlink('Bonjour, je vous écris depuis votre site de formations.'))+'" target="_blank" rel="noopener noreferrer">WhatsApp</a>':'')+(s.email?'<a href="mailto:'+esc(s.email)+'">'+esc(s.email)+'</a>':'')+(s.phone?'<span>'+esc(s.phone)+'</span>':'')+(safeUrl(s.calendly)?'<a href="'+esc(safeUrl(s.calendly))+'" target="_blank" rel="noopener noreferrer">Réserver 30 min</a>':'')+'</div>'+
+  '<div><h4>Guide gratuit</h4><form data-form="lead" class="leadf"><label for="ld1" class="sr">Prénom</label><input id="ld1" name="name" placeholder="Prénom" required><label for="ld2" class="sr">E-mail ou téléphone</label><input id="ld2" name="contact" placeholder="E-mail ou WhatsApp" required><button class="btn sm" type="submit">Recevoir le guide</button></form></div></div>'+
+  '<div class="ftb"><span>© '+new Date().getFullYear()+' '+esc(s.name)+'</span><span>Paiement : Wave · Orange Money · MTN Money · carte</span>'+(VITRINE?'':'<a href="#/gestion">Espace de gestion</a>')+'</div></div></footer>';
+}
+function cover(c){var h=HUE[c.cat]==null?260:HUE[c.cat];return '<div class="cv" style="--h:'+h+'"><span class="cv-t">'+esc(c.cat)+'</span><span class="cv-i" aria-hidden="true">'+esc(c.title.replace(/[^A-Za-zÀ-ÿ]/g,'').slice(0,1).toUpperCase())+'</span></div>';}
+function courseCard(c){
+  var p=pathOf(c),free=!priceOf(c);
+  return '<article class="cc">'+cover(c)+(c.popular?'<span class="pop">Populaire</span>':'')+(free?'<span class="pop free">Gratuit</span>':'')+'<div class="cb"><div class="cm"><span class="tg lv">'+esc(c.level)+'</span><span class="tg">'+esc(c.format)+'</span></div>'+(p?'<div class="cpath">'+esc(p.title)+' · niveau '+c.pos+'/5</div>':'')+'<h3><a href="#/formation/'+esc(c.slug)+'">'+esc(c.title)+'</a></h3><p class="chook">'+esc(c.hook)+'</p><div class="cs">'+hh(c)+' h · '+esc(modsInfo(c))+'</div><div class="cf"><div class="cp"><b>'+money(priceOf(c))+'</b>'+(free?'':'<span>'+eur(priceOf(c))+'</span>')+'</div><a class="btn sm" href="#/formation/'+esc(c.slug)+'">Voir la formation</a></div></div></article>';
+}
+function pathCard(p){
+  var cs=DB.courses.filter(function(c){return c.path===p.id&&c.published!==false;}).sort(function(a,b){return a.pos-b.pos;});
+  var h=0;cs.forEach(function(c){h+=+hoursOf(c)||0;});
+  var mn=Math.min.apply(null,cs.map(priceOf)),mx=Math.max.apply(null,cs.map(priceOf));
+  return '<article class="pcd"><div class="pcd-t">Parcours · '+cs.length+' niveaux</div><h3><a href="#/parcours/'+esc(p.slug)+'">'+esc(p.title)+'</a></h3><p>'+esc(p.hook)+'</p><ol class="stairs">'+cs.map(function(c){return '<li><span>'+c.pos+'</span>'+esc(c.level)+'</li>';}).join('')+'</ol><div class="pcd-f"><div><b>'+money(mn)+' à '+money(mx)+'</b><span>'+h+' h au total · en ligne et présentiel</span></div><a class="btn sm" href="#/parcours/'+esc(p.slug)+'">Voir le parcours</a></div></article>';
+}
+function sessCard(s){
+  var c=course(s.courseId);if(!c)return '';var f=sessionFull(s);var d=new Date(s.start+'T12:00:00');
+  return '<article class="sc"><div class="sc-d"><b>'+d.getDate()+'</b><span>'+d.toLocaleDateString('fr-FR',{month:'short'})+'</span></div><div class="sc-b"><div class="cm"><span class="tg lv">'+esc(s.mode)+'</span>'+(f.left<=3&&f.left>0?'<span class="tg warn">Plus que '+f.left+' places</span>':'')+(f.left===0?'<span class="tg warn">Complet</span>':'')+'</div><h3><a href="#/formation/'+esc(c.slug)+'">'+esc(c.title)+'</a></h3><p class="muted small">'+esc(fd(s.start))+(s.end&&s.end!==s.start?' → '+esc(fd(s.end,true)):'')+' · '+esc(s.time)+(s.place?' · '+esc(s.place):'')+'</p></div><a class="btn sm'+(f.left===0?' line':'')+'" href="#/inscription/c/'+esc(c.id)+'?s='+esc(s.id)+'">'+(f.left===0?'Liste d’attente':'S’inscrire')+'</a></article>';
+}
+function filtered(){
+  var f=UI.f,q=f.q.toLowerCase();
+  return DB.courses.filter(function(c){return c.published!==false&&(!f.cat||c.cat===f.cat)&&(!f.lvl||c.level===f.lvl)&&(!f.fmt||c.format===f.fmt)&&(!q||(c.title+' '+c.hook+' '+c.cat).toLowerCase().indexOf(q)>-1);});
+}
+function sel(name,label,val,opts){return '<div class="fl"><label for="f_'+name+'">'+label+'</label><select id="f_'+name+'" data-f="'+name+'"><option value="">Tous</option>'+opts.map(function(o){return '<option'+(val===o?' selected':'')+'>'+esc(o)+'</option>';}).join('')+'</select></div>';}
+function pageHome(){
+  var hrs=0,ex=0;DB.courses.forEach(function(c){hrs+=+hoursOf(c)||0;ex+=lessonsOf(c).filter(function(x){return x.l.type==='devoir';}).length;});
+  var list=filtered(),ses=nextSessions().slice(0,3);
+  var h='<section class="hero"><div class="wrap herog"><div><span class="eyb">'+esc(S().name)+' · Formation</span><h1>Des compétences qui font avancer votre activité, un certificat qui se partage</h1><p class="lead">'+esc(S().tagline)+'. Apprenez à votre rythme en ligne, ou venez en présentiel avec un formateur.</p><div class="row"><button class="btn" data-act="scroll" data-t="catalogue">Voir les formations</button><button class="btn ghost" data-act="scroll" data-t="comment">Comment ça marche</button></div></div><div class="cert-prev" aria-hidden="true"><div class="cp-in"><small>Certificat de réussite</small><b>Prénom Nom</b><span>a validé la formation</span><i>Gestion de projet · Niveau Avancé</i><em>N° GSC-2026-XXXXXX · vérifiable en ligne</em></div></div></div><div class="wrap"><ul class="kpis"><li><b>'+hrs+' h</b><span>de contenu</span></li><li><b>'+ex+'</b><span>exercices corrigés</span></li><li><b>100 %</b><span>certificat vérifiable</span></li><li><b>Mobile</b><span>accessible sur téléphone</span></li></ul></div></section>';
+  h+='<section class="sec" id="parcours"><div class="wrap"><div class="sh"><h2>Des parcours pour monter en compétences</h2><a href="#/parcours">Tous les parcours →</a></div><div class="g3">'+DB.paths.map(pathCard).join('')+'</div></div></section>';
+  if(ses.length)h+='<section class="sec alt"><div class="wrap"><div class="sh"><h2>Prochaines sessions</h2><a href="#/sessions">Toutes les sessions →</a></div><div class="sclist">'+ses.map(sessCard).join('')+'</div></div></section>';
+  h+='<section class="sec" id="catalogue"><div class="wrap"><div class="sh"><h2>Le catalogue</h2><span class="muted">'+list.length+' formation'+(list.length>1?'s':'')+'</span></div><div class="filters"><div class="fl fq"><label for="f_q">Rechercher</label><input id="f_q" type="search" data-f="q" placeholder="Un mot, un sujet…" value="'+esc(UI.f.q)+'"></div>'+sel('cat','Catégorie',UI.f.cat,CATS)+sel('lvl','Niveau',UI.f.lvl,LEVELS)+sel('fmt','Format',UI.f.fmt,FORMATS)+'</div>'+(list.length?'<div class="g3">'+list.map(courseCard).join('')+'</div>':'<div class="empty">Aucune formation ne correspond. <button class="lnk" data-act="reset-f">Effacer les filtres</button></div>')+'</div></section>';
+  h+='<section class="sec alt" id="comment"><div class="wrap"><h2>Comment ça marche</h2><ol class="how"><li><b>1</b><h3>Choisissez</h3><p>Une formation ou un parcours, en ligne ou en présentiel.</p></li><li><b>2</b><h3>Inscrivez-vous</h3><p>Réglez par Wave, Orange Money, MTN Money ou carte. Accès sous 24 h ouvrées.</p></li><li><b>3</b><h3>Pratiquez</h3><p>Leçons, exercices corrigés, quiz et questions au formateur.</p></li><li><b>4</b><h3>Obtenez et partagez</h3><p>Un certificat vérifiable en ligne, à ajouter à votre CV ou LinkedIn.</p></li></ol></div></section>';
+  h+='<section class="sec"><div class="wrap band"><div><h2>Une entreprise ? Gérons vos projets et vos équipes.</h2><p>Planification des projets et des tâches, formation de vos équipes en présentiel et en ligne. Parlons de votre besoin.</p></div><div class="row"><a class="btn" href="'+esc(wlink('Bonjour, je souhaite un accompagnement pour mon entreprise (projets et formation).'))+'" target="_blank" rel="noopener noreferrer">Nous écrire sur WhatsApp</a>'+(safeUrl(S().calendly)?'<a class="btn ghost" href="'+esc(safeUrl(S().calendly))+'" target="_blank" rel="noopener noreferrer">Réserver 30 min</a>':'')+'</div></div></section>';
+  h+='<section class="sec"><div class="wrap band mag"><div><h2>Parrainez, gagnez '+S().refPct+' %</h2><p>Vous touchez '+S().refPct+' % du montant payé par chaque personne parrainée, et elle bénéficie de '+S().refDisc+' % de remise.</p></div><a class="btn ghost" href="#/parrainage">Obtenir mon lien de parrainage</a></div></section>';
+  h+=faqBlock(DB.faq||[['Comment payer ?','Par Wave, Orange Money, MTN Money ou carte via Money Fusion. Vous recevez votre accès sous 24 h ouvrées après le paiement.'],['Combien de temps ai-je accès ?','Vous gardez l’accès à votre formation en ligne à vie.'],['Puis-je suivre sur mon téléphone ?','Oui. Les formations sont pensées pour le mobile, y compris avec une connexion lente.'],['Comment obtenir le certificat ?','Terminez toutes les leçons et réussissez le quiz final (60 % minimum). Votre certificat est généré avec un numéro vérifiable.'],['Y a-t-il un remboursement ?','Si la formation ne vous convient pas, écrivez-nous dans les 7 jours suivant l’accès : nous étudions votre demande.'],['Comment se passe le présentiel ?','Vous choisissez une session (date, lieu), vous vous inscrivez et vous recevez la confirmation par WhatsApp.']],'Questions fréquentes');
+  return h;
+}
+function faqBlock(items,title){return '<section class="sec alt"><div class="wrap narrow"><h2>'+esc(title)+'</h2>'+items.map(function(q){return '<details class="faq"><summary>'+esc(q[0])+'</summary><p>'+esc(q[1])+'</p></details>';}).join('')+'</div></section>';}
+function pageParcoursIdx(){return '<section class="sec"><div class="wrap"><div class="crumb"><a href="#/">Formations</a> › Parcours</div><h1>Les parcours</h1><p class="lead">Chaque parcours monte en cinq niveaux : vous avancez d’une marche à la fois, avec un certificat à chaque niveau.</p><div class="g3">'+DB.paths.map(pathCard).join('')+'</div></div></section>';}
+function pageParcours(slug){
+  var p=pathBySlug(slug);if(!p)return notFound();
+  var cs=DB.courses.filter(function(c){return c.path===p.id&&c.published!==false;}).sort(function(a,b){return a.pos-b.pos;});
+  var h=0;cs.forEach(function(c){h+=+hoursOf(c)||0;});var save=p.fullPrice-p.price;
+  return '<section class="hero sm"><div class="wrap"><div class="crumb dk"><a href="#/">Formations</a> › <a href="#/parcours">Parcours</a></div><h1>'+esc(p.title)+'</h1><p class="lead">'+esc(p.hook)+'</p><div class="priceb">'+(save>0?'<s>'+money(p.fullPrice)+'</s>':'')+'<b>'+money(p.price)+'</b>'+(save>0?'<span>Économie : '+money(save)+'</span>':'')+'</div><div class="row"><a class="btn" href="#/inscription/p/'+esc(p.id)+'">S’inscrire au parcours · '+money(p.price)+'</a>'+(cs[0]?'<a class="btn ghost" href="#/formation/'+esc(cs[0].slug)+'">Commencer par le niveau 1</a>':'')+'</div><p class="small dk">Paiement Wave, Orange Money, MTN Money ou carte. Accès sous 24 h ouvrées.</p></div></section>'+
+  '<section class="sec"><div class="wrap"><ul class="kpis flat"><li><b>'+cs.length+'</b><span>niveaux</span></li><li><b>'+h+' h</b><span>de formation</span></li><li><b>'+cs.length+'</b><span>certificats vérifiables</span></li></ul><h2>L’escalier du parcours</h2><div class="g3">'+cs.map(courseCard).join('')+'</div></div></section>'+
+  '<section class="sec alt"><div class="wrap narrow"><h2>Pourquoi ce parcours</h2><p>'+esc(p.why)+'</p><p class="muted"><b>Public :</b> '+esc(p.audience)+'</p><h3>Au bout du parcours, vous savez</h3><ol class="chk">'+(p.outcomes||[]).map(function(o){return '<li>'+esc(o)+'</li>';}).join('')+'</ol></div></section>'+
+  faqBlock([['Par quel niveau commencer ?','Si vous débutez, commencez par le niveau 1. Si vous avez déjà de l’expérience, choisissez le niveau qui vous correspond : chaque niveau peut se suivre seul.'],['Que vaut le certificat ?','Chaque niveau donne un certificat avec un numéro, vérifiable en ligne par un employeur ou un client.'],['Combien de temps dure le parcours ?',h+' heures au total. Vous avancez à votre rythme.']],'Questions fréquentes');
+}
+function notFound(){return '<section class="sec"><div class="wrap"><h1>Page introuvable</h1><p><a class="btn" href="#/">Retour aux formations</a></p></div></section>';}
+function pageCourse(slug){
+  var c=courseBySlug(slug);if(!c||c.published===false)return notFound();
+  var p=pathOf(c),ses=nextSessions(c.id),next=p?DB.courses.filter(function(x){return x.path===p.id&&x.pos===c.pos+1;})[0]:null,free=!priceOf(c);
+  var cta=function(t){return '<a class="btn" href="#/inscription/c/'+esc(c.id)+'">'+(t||'S’inscrire')+' · '+money(priceOf(c))+(free?'':' · '+eur(priceOf(c)))+'</a>';};
+  var h='<section class="hero sm"><div class="wrap"><div class="crumb dk"><a href="#/">Formations</a> › '+esc(c.title)+'</div><div class="cm"><span class="tg lv">'+esc(c.level)+'</span><span class="tg">'+esc(c.cat)+'</span><span class="tg">'+esc(c.format)+'</span></div><h1>'+esc(c.title)+'</h1><p class="lead">'+esc(c.hook)+'</p><ul class="kpis dk"><li><b>'+hh(c)+' h</b><span>durée</span></li><li><b>'+c.modules.length+'</b><span>modules</span></li><li><b>'+nbLessons(c)+'</b><span>leçons</span></li><li><b>'+(c.certificate===false?'—':'Inclus')+'</b><span>certificat</span></li></ul><div class="row">'+cta()+'<a class="btn ghost" href="'+esc(wlink('Bonjour, j’ai une question sur la formation « '+c.title+' ».'))+'" target="_blank" rel="noopener noreferrer">Une question ? WhatsApp</a></div><p class="small dk">Paiement Wave, Orange Money, MTN Money ou carte. Accès sous 24 h ouvrées.</p></div></section>';
+  h+='<section class="sec"><div class="wrap cols"><div class="main">';
+  h+='<h2>Vous apprendrez à</h2><ol class="chk">'+c.objectives.map(function(o){return '<li>'+esc(o)+'</li>';}).join('')+'</ol>';
+  if(c.desc)h+='<h2>À propos de cette formation</h2><div class="rich">'+mdLite(c.desc)+'</div>';
+  h+='<h3>Prérequis</h3><p>'+esc((c.prereq||[]).join(', ')||'Aucun')+'</p><h3>Public visé</h3><p>'+esc(c.audience)+'</p>';
+  if(p)h+='<p class="muted">Cette formation est le niveau '+c.pos+' sur 5 du parcours <a href="#/parcours/'+esc(p.slug)+'">'+esc(p.title)+'</a>.</p>';
+  h+='<h2 id="programme">Programme</h2>'+c.modules.map(function(m,i){return '<details class="mod"'+(i===0?' open':'')+'><summary><span class="mn">'+(i+1)+'</span><b>'+esc(m.title)+'</b><span class="muted small">'+m.lessons.length+' leçons</span></summary><ul>'+m.lessons.map(function(l){return '<li><span class="lt '+l.type+'">'+LTYPE[l.type]+'</span>'+esc(l.title)+'<em>'+l.dur+' min</em></li>';}).join('')+'</ul></details>';}).join('');
+  if(ses.length&&c.format!=='En ligne')h+='<h2>Prochaines sessions</h2><div class="sclist">'+ses.slice(0,4).map(sessCard).join('')+'</div>';
+  else if(ses.length)h+='<h2>Prochaines sessions en direct</h2><div class="sclist">'+ses.slice(0,4).map(sessCard).join('')+'</div>';
+  if(c.certificate!==false)h+='<h2>Votre certificat à la fin</h2><div class="cert-mini"><b>Certificat de réussite</b><span>Numéro unique · vérifiable en ligne · à partager sur LinkedIn ou WhatsApp</span><small>Conditions : terminer toutes les leçons et réussir le quiz final (60 %).</small></div>';
+  if(next)h+='<h2>Niveau suivant</h2><div class="g3">'+courseCard(next)+'</div>';
+  h+='<h3>Votre formateur</h3><p>'+esc(c.trainer)+'</p>';
+  h+='</div><aside class="side"><div class="buy"><div class="buy-p"><b>'+money(priceOf(c))+'</b><span>'+eur(priceOf(c))+'</span></div>'+cta()+'<ul class="inc"><li>'+c.modules.length+' modules, '+nbLessons(c)+' leçons</li><li>Exercices corrigés</li><li>Certificat vérifiable</li><li>Questions au formateur (réponse sous 2 jours ouvrés)</li><li>Accès à vie, sur mobile</li></ul></div></aside></div></section>';
+  h+=faqBlock((c.faq&&c.faq.length)?c.faq:[['Comment payer ?','Wave, Orange Money, MTN Money ou carte. Accès ouvert sous 24 h ouvrées.'],['Comment obtenir le certificat ?','Terminez toutes les leçons et réussissez le quiz final avec au moins 60 %.'],['Je débute, est-ce pour moi ?','Oui, si le niveau « '+c.level+' » correspond à ce que vous savez déjà. En cas de doute, écrivez-nous sur WhatsApp.']],'Questions sur cette formation');
+  return h;
+}
+function pageSessions(){
+  var all=nextSessions(),mode=UI.f.smode||'';
+  var list=all.filter(function(s){return !mode||s.mode===mode;});
+  return '<section class="sec"><div class="wrap"><div class="crumb"><a href="#/">Formations</a> › Sessions</div><h1>Prochaines sessions</h1><p class="lead">Présentiel dans nos villes, ou en direct en ligne.</p><div class="filters"><div class="fl"><label for="f_smode">Mode</label><select id="f_smode" data-f="smode"><option value="">Tous</option><option'+(mode==='Présentiel'?' selected':'')+'>Présentiel</option><option'+(mode==='En ligne en direct'?' selected':'')+'>En ligne en direct</option></select></div></div><div class="sclist">'+(list.length?list.map(sessCard).join(''):'<div class="empty">Aucune session programmée pour le moment. <a href="'+esc(wlink('Bonjour, quand aura lieu la prochaine session ?'))+'" target="_blank" rel="noopener noreferrer">Demandez-nous la prochaine date.</a></div>')+'</div></div></section>';
+}
+function pageEnrol(a,b){
+  var kind=a,isPath=kind==='p',c=isPath?null:course(b),p=isPath?byId(DB.paths,b):null;
+  if(!c&&!p)return notFound();
+  var q={};try{(location.hash.split('?')[1]||'').split('&').forEach(function(x){var kv=x.split('=');if(kv[0])q[kv[0]]=decodeURIComponent(kv[1]||'');});}catch(e){}
+  var price=isPath?p.price:priceOf(c),title=isPath?p.title:c.title,ses=c?nextSessions(c.id):[];
+  var ref=UI.f.ref||q.ref||'';
+  var disc=refValid(ref)?Math.round(price*S().refDisc/100):0;
+  var h='<section class="sec"><div class="wrap narrow"><div class="crumb"><a href="#/">Formations</a> › Inscription</div><h1>Inscription</h1><div class="card sum"><b>'+esc(title)+'</b><div class="muted">'+(isPath?'Parcours complet · '+DB.courses.filter(function(x){return x.path===p.id;}).length+' formations':esc(c.level)+' · '+esc(c.format)+' · '+hh(c)+' h')+'</div><div class="sum-p">'+(disc?'<s>'+money(price)+'</s> ':'')+'<b>'+money(price-disc)+'</b>'+(disc?'<span class="tg ok">Remise parrainage '+S().refDisc+' %</span>':'')+'</div></div>';
+  h+='<form data-form="enrol" class="card" data-kind="'+kind+'" data-id="'+esc(b)+'"><div class="g2"><div class="fld"><label for="e1">Nom et prénom *</label><input id="e1" name="name" autocomplete="name" required></div><div class="fld"><label for="e2">Téléphone / WhatsApp *</label><input id="e2" name="phone" type="tel" autocomplete="tel" placeholder="+221 77 000 00 00" required></div><div class="fld"><label for="e3">E-mail</label><input id="e3" name="email" type="email" autocomplete="email"></div>';
+  if(ses.length)h+='<div class="fld"><label for="e4">Session'+(c.format==='Présentiel'?' *':' (facultatif)')+'</label><select id="e4" name="session"'+(c.format==='Présentiel'?' required':'')+'><option value="">'+(c.format==='Présentiel'?'Choisir une session…':'Sans session')+'</option>'+ses.map(function(s){var f=sessionFull(s);return '<option value="'+esc(s.id)+'"'+(q.s===s.id?' selected':'')+'>'+esc(fd(s.start,true))+' · '+esc(s.mode)+(s.place?' · '+esc(s.place):'')+(f.left===0?' (liste d’attente)':'')+'</option>';}).join('')+'</select></div>';
+  h+='<div class="fld"><label for="e5">Moyen de paiement</label><select id="e5" name="method"><option>Wave</option><option>Orange Money</option><option>MTN Money</option><option>Carte (Money Fusion)</option><option>Espèces / sur place</option></select></div><div class="fld"><label for="e6">Code de parrainage (facultatif)</label><input id="e6" name="ref" value="'+esc(ref)+'" placeholder="GSCXXXXX" data-refin></div></div>'+
+  (price?'<p class="muted small">'+esc(S().pay)+'</p>':'<p class="muted small">Formation gratuite : votre accès est ouvert immédiatement.</p>')+
+  '<label class="chkl"><input type="checkbox" name="ok" required> J’accepte que '+esc(S().name)+' enregistre ces informations pour gérer mon inscription.</label><p id="enmsg" class="err" role="alert"></p><button class="btn" type="submit">'+(price?'Confirmer mon inscription':'Ouvrir mon accès gratuit')+'</button></form></div></section>';
+  return h;
+}
+function pageThanks(eid){
+  var e=enr(eid);var l=e&&learner(e.learnerId),c=e&&course(e.courseId);
+  if(!e&&!UI.thanks)return notFound();
+  var T=UI.thanks||{};var name=T.name||(l&&l.name)||'',title=T.title||(c&&c.title)||'';
+  var msg='Bonjour, je viens de m’inscrire à « '+title+' ». Mon nom : '+name+(T.ref?'. Référence : '+T.ref:'')+'. Je souhaite régler par '+(T.method||'Wave')+'.';
+  return '<section class="sec"><div class="wrap narrow"><div class="card okc"><h1>Merci '+esc(name.split(' ')[0])+' !</h1><p>Votre inscription à <b>'+esc(title)+'</b> est enregistrée.</p>'+(T.free&&T.code?'<p>Votre accès est ouvert. Votre code d’accès :</p><div class="codebox">'+esc(T.code)+'</div><p class="muted small">Connectez-vous avec votre e-mail ou téléphone et ce code.</p><a class="btn" href="#/connexion">Accéder à mon espace</a>':'<ol class="chk"><li>Réglez le montant ('+money(T.amount||0)+') par '+esc(T.method||'Wave')+'. '+esc(S().payNote)+'</li><li>Envoyez-nous la preuve de paiement sur WhatsApp.</li><li>Vous recevez votre code d’accès sous 24 h ouvrées.</li></ol><a class="btn" href="'+esc(wlink(msg))+'" target="_blank" rel="noopener noreferrer">Envoyer ma preuve sur WhatsApp</a>')+'</div></div></section>';
+}
+function pageCertVerify(code){
+  var c=String(code||UI.f.vc||'').trim().toUpperCase();var res=null;
+  if(c)res=(DB.certs||[]).filter(function(x){return x.code===c;})[0]||false;
+  return '<section class="sec"><div class="wrap narrow"><div class="crumb"><a href="#/">Formations</a> › Certificat</div><h1>Vérifier un certificat</h1><p class="lead">Entrez le numéro inscrit sur le certificat pour confirmer qu’il est authentique.</p><form data-form="verify" class="row vf"><label for="vc" class="sr">Numéro</label><input id="vc" name="code" placeholder="GSC-2026-XXXXXX" value="'+esc(c)+'" required><button class="btn" type="submit">Vérifier</button></form>'+
+  (res?'<div class="card okc"><span class="tg ok">Certificat authentique</span><h2>'+esc(res.name)+'</h2><p>a validé la formation <b>'+esc(res.course)+'</b> ('+esc(res.hours)+' h, niveau '+esc(res.level)+')</p><p class="muted">Délivré le '+esc(fd(res.date))+' · N° '+esc(res.code)+'</p></div>':(res===false?'<div class="card badc"><b>Aucun certificat trouvé</b> avec ce numéro. Vérifiez la saisie ou contactez-nous.</div>':''))+'</div></section>';
+}
+function pageReferral(){
+  var code=UI.f.rc||'';var link=code?location.href.split('#')[0]+'#/?ref='+code:'';
+  return '<section class="sec"><div class="wrap narrow"><div class="crumb"><a href="#/">Formations</a> › Parrainage</div><h1>Parrainez, gagnez '+S().refPct+' %</h1><p class="lead">Partagez votre lien. Chaque personne parrainée bénéficie de '+S().refDisc+' % de remise, et vous recevez '+S().refPct+' % du montant qu’elle paie.</p><form data-form="ref" class="card"><div class="g2"><div class="fld"><label for="r1">Votre nom *</label><input id="r1" name="name" required></div><div class="fld"><label for="r2">Votre téléphone / WhatsApp *</label><input id="r2" name="phone" type="tel" required></div></div><button class="btn" type="submit">Obtenir mon lien de parrainage</button></form>'+
+  (code?'<div class="card okc"><p>Votre code :</p><div class="codebox">'+esc(code)+'</div><p class="small">Votre lien : <span class="mono">'+esc(link)+'</span></p><div class="row"><button class="btn" data-act="copy" data-t="'+esc(link)+'">Copier le lien</button><a class="btn line" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text='+encodeURIComponent('Je te recommande les formations de '+S().name+' : '+link+' (code '+code+' : '+S().refDisc+' % de remise)')+'">Partager sur WhatsApp</a></div></div>':'')+'<h3>Comment ça marche</h3><ol class="chk"><li>Vous obtenez votre code personnel.</li><li>Votre filleul le saisit à l’inscription : il paie '+S().refDisc+' % moins cher.</li><li>Une fois son paiement validé, nous vous versons '+S().refPct+' % du montant payé.</li></ol></div></section>';
+}
+function pubRoute(r){
+  switch(r.v){
+    case 'home':return pageHome();
+    case 'parcours':return r.a?pageParcours(r.a):pageParcoursIdx();
+    case 'formation':return pageCourse(r.a);
+    case 'sessions':return pageSessions();
+    case 'inscription':return pageEnrol(r.a,r.b);
+    case 'merci':return pageThanks(r.a);
+    case 'certificat':return pageCertVerify(r.a);
+    case 'parrainage':return pageReferral();
+  }
+  return null;
+}
+
+/* =================== ESPACE APPRENANT =================== */
+function embedUrl(u){
+  u=safeUrl(u);if(!u)return '';var m;
+  if((m=/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{6,})/.exec(u)))return 'https://www.youtube-nocookie.com/embed/'+m[1];
+  if((m=/vimeo\.com\/(\d+)/.exec(u)))return 'https://player.vimeo.com/video/'+m[1];
+  if((m=/drive\.google\.com\/file\/d\/([\w-]+)/.exec(u)))return 'https://drive.google.com/file/d/'+m[1]+'/preview';
+  if((m=/(?:cloudflarestream\.com|videodelivery\.net)\/(?:embed\/[\w.]+\/)?([0-9a-f]{32})/i.exec(u)))return 'https://iframe.videodelivery.net/'+m[1];
+  return '';
+}
+function isFile(u){u=safeUrl(u);return !!u&&/\.(mp4|webm|m4v|mov|ogv)(\?|#|$)/i.test(u.split('?')[0]+(u.indexOf('?')>-1?'?':''));}
+function pageLogin(){
+  if(VITRINE)return '<section class="sec"><div class="wrap narrow"><h1>Espace apprenant</h1><p class="lead">Votre espace est ouvert par votre formateur après votre inscription. Écrivez-nous sur WhatsApp pour y accéder.</p><a class="btn" href="'+esc(wlink('Bonjour, je souhaite accéder à mon espace apprenant.'))+'" target="_blank" rel="noopener noreferrer">Nous écrire sur WhatsApp</a></div></section>';
+  return '<section class="sec"><div class="wrap narrow"><h1>Espace apprenant</h1><p class="lead">Connectez-vous avec votre e-mail ou téléphone et le code d’accès reçu après votre paiement.</p><form data-form="login" class="card"><div class="fld"><label for="lg1">E-mail ou téléphone</label><input id="lg1" name="id" autocomplete="username" required></div><div class="fld"><label for="lg2">Code d’accès</label><input id="lg2" name="code" autocomplete="one-time-code" required></div><p id="lgmsg" class="err" role="alert"></p><button class="btn" type="submit">Me connecter</button></form><p class="muted small">Pas encore de code ? <a href="#/">Choisissez une formation</a> ou <a href="'+esc(wlink('Bonjour, je n’ai pas reçu mon code d’accès.'))+'" target="_blank" rel="noopener noreferrer">écrivez-nous</a>.</p></div></section>';
+}
+function loginDo(id,code){
+  id=String(id).trim().toLowerCase();code=String(code).trim().toUpperCase();var d=digits(id);
+  var l=DB.learners.filter(function(x){return (x.email&&x.email.toLowerCase()===id)||(d.length>=8&&digits(x.phone).slice(-9)===d.slice(-9));})[0];
+  if(!l||String(l.code).toUpperCase()!==code)return null;return l;
+}
+function pageSpace(){
+  var l=curLearner();if(!l)return pageLogin();
+  var es=DB.enrollments.filter(function(e){return e.learnerId===l.id&&e.status!=='annulé';});
+  var h='<section class="sec"><div class="wrap"><div class="sh"><div><h1>Bonjour '+esc(l.name.split(' ')[0])+'</h1><p class="muted">Votre espace d’apprentissage</p></div><button class="btn line sm" data-act="logout">Me déconnecter</button></div>';
+  h+='<h2>Mes formations</h2>'+(es.length?'<div class="g3">'+es.map(function(e){
+    var c=course(e.courseId);if(!c)return '';var p=progressOf(e),ok=e.status==='payé';
+    return '<article class="cc">'+cover(c)+'<div class="cb"><div class="cm"><span class="tg lv">'+esc(c.level)+'</span><span class="tg '+(ok?'ok':'warn')+'">'+(ok?'Accès ouvert':'Paiement en attente')+'</span></div><h3>'+esc(c.title)+'</h3>'+(ok?'<div class="pbar"><i style="width:'+p+'%"></i></div><div class="small muted">'+p+' % terminé</div><div class="cf"><a class="btn sm" href="#/espace/'+esc(e.id)+'">'+(p?'Continuer':'Commencer')+'</a>'+(e.cert?'<a class="btn sm line" href="#/espace/'+esc(e.id)+'/certificat">Certificat</a>':'')+'</div>':'<p class="small">Envoyez votre preuve de paiement pour ouvrir l’accès.</p><div class="cf"><a class="btn sm" target="_blank" rel="noopener noreferrer" href="'+esc(wlink('Bonjour, voici ma preuve de paiement pour « '+c.title+' » ('+l.name+').'))+'">Envoyer la preuve</a></div>')+'</div></article>';}).join('')+'</div>':'<div class="empty">Vous n’avez pas encore de formation. <a href="#/">Voir le catalogue</a></div>');
+  var mine=es.map(function(e){return e.sessionId;}).filter(Boolean),ss=DB.sessions.filter(function(s){return mine.indexOf(s.id)>-1&&s.start>=today();}).sort(function(a,b){return a.start<b.start?-1:1;});
+  if(ss.length)h+='<h2>Mes prochaines sessions</h2><div class="sclist">'+ss.map(function(s){var c=course(s.courseId);return '<article class="sc"><div class="sc-d"><b>'+new Date(s.start+'T12:00:00').getDate()+'</b><span>'+new Date(s.start+'T12:00:00').toLocaleDateString('fr-FR',{month:'short'})+'</span></div><div class="sc-b"><h3>'+esc(c?c.title:'')+'</h3><p class="muted small">'+esc(fd(s.start))+' · '+esc(s.time)+' · '+esc(s.mode)+(s.place?' · '+esc(s.place):'')+'</p></div>'+(safeUrl(s.link)?'<a class="btn sm" href="'+esc(safeUrl(s.link))+'" target="_blank" rel="noopener noreferrer">Rejoindre</a>':'')+'</article>';}).join('')+'</div>';
+  var certs=es.filter(function(e){return e.cert;});
+  if(certs.length)h+='<h2>Mes certificats</h2><div class="g3">'+certs.map(function(e){var c=course(e.courseId);return '<div class="card"><b>'+esc(c.title)+'</b><div class="muted small">N° '+esc(e.cert.code)+' · '+esc(fd(e.cert.date,true))+'</div><a class="btn sm" href="#/espace/'+esc(e.id)+'/certificat">Voir et partager</a></div>';}).join('')+'</div>';
+  var qs=DB.questions.filter(function(q){return q.learnerId===l.id;});
+  if(qs.length)h+='<h2>Mes questions</h2>'+qs.slice().reverse().slice(0,5).map(function(q){return '<div class="card"><div class="small muted">'+esc(fd(q.date,true))+'</div><p>'+esc(q.text)+'</p>'+(q.answer?'<div class="ans"><b>Réponse du formateur :</b> '+esc(q.answer)+'</div>':'<div class="muted small">En attente de réponse (sous 2 jours ouvrés)</div>')+'</div>';}).join('');
+  return h+'</div></section>';
+}
+function pagePlayer(eid,sub){
+  var l=curLearner();if(!l)return pageLogin();
+  var e=enr(eid);if(!e||e.learnerId!==l.id)return notFound();
+  var c=course(e.courseId);if(!c)return notFound();
+  if(e.status!=='payé')return '<section class="sec"><div class="wrap narrow"><h1>'+esc(c.title)+'</h1><p>Votre paiement n’est pas encore validé.</p><a class="btn" href="#/espace">Retour</a></div></section>';
+  if(sub==='certificat')return pageCertificate(e,c,l);
+  var L=lessonsOf(c),cur=null;
+  if(sub)cur=L.filter(function(x){return x.l.id===sub;})[0];
+  if(!cur)cur=L.filter(function(x){return !(e.done&&e.done[x.l.id]);})[0]||L[0];
+  var idx=L.indexOf(cur),nxt=L[idx+1],prev=L[idx-1],done=e.done&&e.done[cur.l.id],p=progressOf(e);
+  var side='<aside class="pl-side"><a href="#/espace" class="small">← Mes formations</a><h3>'+esc(c.title)+'</h3><div class="pbar"><i style="width:'+p+'%"></i></div><div class="small muted">'+p+' % terminé</div>'+c.modules.map(function(m,mi){return '<div class="pm"><b>'+(mi+1)+'. '+esc(m.title)+'</b><ul>'+m.lessons.map(function(x){var d=e.done&&e.done[x.id];return '<li><a href="#/espace/'+esc(e.id)+'/'+esc(x.id)+'"'+(x.id===cur.l.id?' aria-current="true"':'')+'><i class="'+(d?'ck on':'ck')+'" aria-hidden="true">'+(d?'✓':'')+'</i>'+esc(x.title)+'</a></li>';}).join('')+'</ul></div>';}).join('')+'</aside>';
+  var main='<div class="pl-main"><div class="small muted">Module '+(cur.mi+1)+' · '+esc(cur.m.title)+' · '+LTYPE[cur.l.type]+'</div><h1>'+esc(cur.l.title)+'</h1>';
+  var t=cur.l.type;
+  if(t==='video'){var em=embedUrl(cur.l.url);main+=isFile(cur.l.url)?'<div class="vid file"><video controls playsinline preload="metadata" controlsList="nodownload" data-vid="'+esc(cur.l.id)+'" src="'+esc(safeUrl(cur.l.url))+'">Votre navigateur ne peut pas lire cette vidéo. <a href="'+esc(safeUrl(cur.l.url))+'">Ouvrir la vidéo</a></video></div>':em?'<div class="vid"><iframe src="'+esc(em)+'" title="'+esc(cur.l.title)+'" allowfullscreen loading="lazy"></iframe></div>':(safeUrl(cur.l.url)?'<p><a class="btn" href="'+esc(safeUrl(cur.l.url))+'" target="_blank" rel="noopener noreferrer">Ouvrir la vidéo</a></p>':'<div class="empty">La vidéo de cette leçon sera disponible prochainement.</div>');if(cur.l.content)main+='<div class="rich">'+mdLite(cur.l.content)+'</div>';}
+  else if(t==='texte'){main+='<div class="rich">'+mdLite(cur.l.content)+'</div>';}
+  else if(t==='devoir'){var a=(e.answers||{})[cur.l.id],fb=(e.fb||{})[cur.l.id];main+='<div class="rich">'+mdLite(cur.l.content)+'</div><form data-form="devoir" data-e="'+esc(e.id)+'" data-l="'+esc(cur.l.id)+'"><label for="dv">Votre travail</label><textarea id="dv" name="text" rows="6" required placeholder="Écrivez votre réponse ou collez le lien de votre fichier (Google Drive…)">'+esc(a?a.text:'')+'</textarea><button class="btn" type="submit">'+(a?'Mettre à jour mon travail':'Envoyer mon travail')+'</button></form>'+(fb?'<div class="ans"><b>Retour du formateur :</b> '+esc(fb)+'</div>':(a?'<p class="muted small">Envoyé le '+esc(fd(a.date,true))+'. Le formateur vous répondra.</p>':''));}
+  else if(t==='quiz'){var Q=quizOf(c);if(!Q.length)main+='<div class="empty">Aucun quiz pour le moment.</div>';else main+='<p class="muted">Répondez à toutes les questions. Il faut au moins 60 % pour valider.</p>'+(e.quiz?'<div class="ans">Dernier résultat : <b>'+e.quiz.score+' %</b> '+(e.quiz.score>=60?'(validé)':'(à refaire)')+'</div>':'')+'<form data-form="quiz" data-e="'+esc(e.id)+'" data-l="'+esc(cur.l.id)+'">'+Q.map(function(q,qi){return '<fieldset class="qz"><legend>'+(qi+1)+'. '+esc(q.q)+'</legend>'+q.o.map(function(o,oi){return '<label class="opt"><input type="radio" name="q'+qi+'" value="'+oi+'" required> '+esc(o)+'</label>';}).join('')+'</fieldset>';}).join('')+'<button class="btn" type="submit">Valider mes réponses</button></form>';}
+  if(t!=='devoir'&&t!=='quiz')main+='<div class="row" style="margin-top:18px">'+(done?'<span class="tg ok">Leçon terminée</span>':'<button class="btn" data-act="lesson-done" data-e="'+esc(e.id)+'" data-l="'+esc(cur.l.id)+'">Marquer comme terminée</button>')+'</div>';
+  main+='<div class="row nv">'+(prev?'<a class="btn line sm" href="#/espace/'+esc(e.id)+'/'+esc(prev.l.id)+'">← Précédent</a>':'')+(nxt?'<a class="btn line sm" href="#/espace/'+esc(e.id)+'/'+esc(nxt.l.id)+'">Suivant →</a>':'')+'</div>';
+  if(canCertify(e))main+='<div class="card okc"><h3>Félicitations !</h3><p>Vous avez rempli toutes les conditions.</p><button class="btn" data-act="get-cert" data-e="'+esc(e.id)+'">Obtenir mon certificat</button></div>';
+  else if(p===100&&quizOf(c).length&&!(e.quiz&&e.quiz.score>=60))main+='<p class="muted small">Toutes les leçons sont terminées. Réussissez le quiz final (60 %) pour obtenir votre certificat.</p>';
+  var qs=DB.questions.filter(function(q){return q.enrId===e.id&&q.lessonId===cur.l.id;});
+  main+='<section class="ask"><h3>Poser une question au formateur</h3>'+qs.map(function(q){return '<div class="card"><div class="small muted">'+esc(fd(q.date,true))+'</div><p>'+esc(q.text)+'</p>'+(q.answer?'<div class="ans"><b>Réponse :</b> '+esc(q.answer)+'</div>':'<div class="muted small">En attente de réponse</div>')+'</div>';}).join('')+'<form data-form="ask" data-e="'+esc(e.id)+'" data-l="'+esc(cur.l.id)+'"><label for="aq" class="sr">Votre question</label><textarea id="aq" name="text" rows="3" required placeholder="Votre question sur cette leçon…"></textarea><button class="btn sm" type="submit">Envoyer ma question</button></form></section></div>';
+  return '<section class="sec"><div class="wrap pl">'+side+main+'</div></section>';
+}
+function pageCertificate(e,c,l){
+  if(!e.cert)return '<section class="sec"><div class="wrap narrow"><p>Aucun certificat pour le moment.</p><a class="btn" href="#/espace/'+esc(e.id)+'">Retour</a></div></section>';
+  var url=location.href.split('#')[0]+'#/certificat/'+e.cert.code;
+  return '<section class="sec"><div class="wrap narrow"><div class="row noprint" style="justify-content:space-between"><a href="#/espace" class="small">← Mon espace</a></div><div class="certificate"><div class="ct-top">'+logo(false)+'<span>Certificat de réussite</span></div><p>Il est certifié que</p><h2>'+esc(l.name)+'</h2><p>a validé avec succès la formation</p><h3>'+esc(c.title)+'</h3><p class="muted">'+hh(c)+' heures · niveau '+esc(c.level)+' · délivré le '+esc(fd(e.cert.date))+'</p><div class="ct-f"><div><small>Numéro</small><b>'+esc(e.cert.code)+'</b></div><div><small>Vérification</small><b>Page « Certificat » du site</b></div><div><small>Signataire</small><b>'+esc(c.trainer)+'</b></div></div></div><div class="row noprint" style="margin-top:14px"><button class="btn" data-act="print">Imprimer / enregistrer en PDF</button><a class="btn line" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name='+encodeURIComponent(c.title)+'&organizationName='+encodeURIComponent(S().name)+'&certId='+encodeURIComponent(e.cert.code)+'&certUrl='+encodeURIComponent(url)+'">Ajouter à LinkedIn</a><a class="btn line" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text='+encodeURIComponent('J’ai obtenu mon certificat « '+c.title+' » chez '+S().name+'. Vérifiez-le : '+url)+'">Partager sur WhatsApp</a></div></div></section>';
+}
+
+/* =================== GESTION : socle, tableau de bord, formations, parcours, sessions =================== */
+function tag(c,t){return '<span class="tg '+c+'">'+esc(t)+'</span>';}
+function F(kind,ids,f,label,val,o){
+  o=o||{};ids=ids||{};var id='f'+Math.random().toString(36).slice(2,8);
+  var at=' data-k="'+kind+'" data-f="'+f+'"'+(ids.id?' data-id="'+esc(ids.id)+'"':'')+(ids.m?' data-m="'+esc(ids.m)+'"':'')+(ids.l?' data-l="'+esc(ids.l)+'"':'')+(o.rr?' data-rr="1"':'')+(o.lines?' data-lines="1"':'')+(o.num?' data-num="1"':'');
+  var inner;
+  if(o.chk)return '<label class="fld chk'+(o.w2?' w2':'')+'"><input type="checkbox"'+at+(val?' checked':'')+'> '+esc(label)+'</label>';
+  if(o.sel)inner='<select id="'+id+'"'+at+'>'+o.sel.map(function(x){x=Array.isArray(x)?x:[x,x];return '<option value="'+esc(x[0])+'"'+(String(x[0])===String(val)?' selected':'')+'>'+esc(x[1])+'</option>';}).join('')+'</select>';
+  else if(o.area||o.lines)inner='<textarea id="'+id+'"'+at+' rows="'+(o.rows||3)+'"'+(o.ph?' placeholder="'+esc(o.ph)+'"':'')+'>'+esc(o.lines?(val||[]).join('\n'):val)+'</textarea>';
+  else inner='<input id="'+id+'" type="'+(o.type||'text')+'"'+at+' value="'+esc(val)+'"'+(o.ph?' placeholder="'+esc(o.ph)+'"':'')+(o.min!=null?' min="'+o.min+'"':'')+'>';
+  return '<div class="fld'+(o.w2?' w2':'')+'"><label for="'+id+'">'+esc(label)+'</label>'+inner+'</div>';
+}
+var ADM_TABS=[['dash','Tableau de bord'],['formations','Formations'],['parcours','Parcours'],['sessions','Sessions'],['inscriptions','Inscriptions'],['apprenants','Apprenants'],['suivi','Questions et devoirs'],['projets','Projets et tâches'],['planning','Planning'],['parrainage','Parrainage et contacts'],['reglages','Réglages']];
+function admShell(r,body){
+  var pend=DB.enrollments.filter(function(e){return e.status==='en attente';}).length,qn=DB.questions.filter(function(q){return !q.answer;}).length;
+  var badge={inscriptions:pend,suivi:qn};
+  return '<div class="adm"><aside class="aside noprint"><a href="#/" class="alogo">'+logo(true)+'</a><div class="asub">Gestion</div><nav>'+ADM_TABS.map(function(t){return '<a href="#/gestion/'+t[0]+'"'+((r.a||'dash')===t[0]?' aria-current="page"':'')+'>'+t[1]+(badge[t[0]]?'<span class="cnt">'+badge[t[0]]+'</span>':'')+'</a>';}).join('')+'</nav><div class="afoot"><a href="#/">← Voir le site public</a><button class="lnk" data-act="adm-out">Fermer la session</button></div></aside><main class="amain">'+body+'</main></div>';
+}
+function admLock(){
+  if(hasPin()&&!isAdmin())return '<div class="lockbox"><h1>Espace de gestion</h1><p class="muted">Saisissez votre code d’accès.</p><form data-form="unlock"><div class="fld"><label for="pin" class="sr">Code</label><input id="pin" type="password" autocomplete="current-password" autofocus></div><button class="btn" type="submit">Ouvrir</button><p id="pinmsg" class="err" role="alert"></p></form><a href="#/" class="small">← Site public</a></div>';
+  return '';
+}
+function admRoute(r){
+  var lk=admLock();if(lk)return lk;
+  var t=r.a||'dash',b='';
+  if(t==='dash')b=aDash();else if(t==='formations')b=r.b?aCourseEd(r.b):aCourses();else if(t==='parcours')b=r.b?aPathEd(r.b):aPaths();
+  else if(t==='sessions')b=r.b?aSessEd(r.b):aSessions();else if(t==='inscriptions')b=aEnrol();else if(t==='apprenants')b=aLearners();
+  else if(t==='suivi')b=aSuivi();else if(t==='projets')b=r.b?aProject(r.b):aProjects();else if(t==='planning')b=aPlanning();
+  else if(t==='parrainage')b=aReferral();else if(t==='reglages')b=aSettings();else b=aDash();
+  return admShell(r,b);
+}
+function atopH(h,acts){return '<div class="atop"><h1>'+h+'</h1><div class="acts">'+(acts||'')+'</div></div>';}
+/* ---------- tableau de bord ---------- */
+function lateTasks(){var t=today(),o=[];DB.projects.forEach(function(p){p.tasks.forEach(function(k){if(k.status!=='done'&&k.due&&k.due<t)o.push({p:p,k:k});});});return o;}
+function aDash(){
+  var pend=DB.enrollments.filter(function(e){return e.status==='en attente';}),paid=DB.enrollments.filter(function(e){return e.status==='payé';});
+  var rev=0;paid.forEach(function(e){rev+=+e.amount||0;});
+  var qn=DB.questions.filter(function(q){return !q.answer;}).length,dv=0;DB.enrollments.forEach(function(e){Object.keys(e.answers||{}).forEach(function(k){if(!(e.fb||{})[k])dv++;});});
+  var lt=lateTasks(),ss=nextSessions().slice(0,5),open=0;DB.projects.forEach(function(p){p.tasks.forEach(function(k){if(k.status!=='done')open++;});});
+  var h=atopH('Tableau de bord','<a class="btn" href="#/gestion/formations/new">Nouvelle formation</a><a class="btn line" href="#/gestion/sessions/new">Nouvelle session</a><a class="btn line" href="#/gestion/projets">Projets et tâches</a>');
+  h+='<div class="kp">'+[['Inscriptions à valider',pend.length,pend.length?'warn':''],['Apprenants actifs',DB.learners.length,''],['Revenus encaissés',money(rev),''],['Sessions à venir',nextSessions().length,''],['Tâches ouvertes',open,''],['Tâches en retard',lt.length,lt.length?'bad':''],['Questions sans réponse',qn,qn?'warn':''],['Devoirs à corriger',dv,dv?'warn':'']].map(function(k){return '<div class="kpi '+k[2]+'"><b>'+k[1]+'</b><span>'+k[0]+'</span></div>';}).join('')+'</div>';
+  h+='<div class="g2"><div class="card"><h2>À traiter</h2>'+((pend.length||qn||dv||lt.length)?'<ul class="todo">'+(pend.length?'<li><a href="#/gestion/inscriptions">'+pend.length+' paiement(s) à valider</a></li>':'')+(qn?'<li><a href="#/gestion/suivi">'+qn+' question(s) d’apprenants sans réponse</a></li>':'')+(dv?'<li><a href="#/gestion/suivi">'+dv+' devoir(s) à corriger</a></li>':'')+lt.slice(0,6).map(function(x){return '<li class="late"><a href="#/gestion/projets/'+x.p.id+'">Tâche en retard : '+esc(x.k.title)+' ('+esc(x.p.name)+', '+esc(fd(x.k.due,true))+')</a></li>';}).join('')+'</ul>':'<p class="muted">Tout est à jour.</p>')+'</div><div class="card"><h2>Prochaines sessions</h2>'+(ss.length?ss.map(function(s){var c=course(s.courseId),f=sessionFull(s);return '<div class="row between ln"><span><b>'+esc(fd(s.start,true))+' '+esc(s.time)+'</b> · '+esc(c?c.title:'')+'<br><span class="muted small">'+esc(s.mode)+(s.place?' · '+esc(s.place):'')+' · '+f.n+'/'+s.capacity+' inscrits</span></span><a class="btn sm line" href="#/gestion/sessions/'+s.id+'">Ouvrir</a></div>';}).join(''):'<p class="muted">Aucune session programmée.</p>')+'</div></div>';
+  h+='<div class="card"><h2>Projets en cours</h2>'+(DB.projects.length?'<div class="g3">'+DB.projects.map(projCard).join('')+'</div>':'<p class="muted">Aucun projet.</p>')+'</div>';
+  return h;
+}
+/* ---------- formations ---------- */
+function aCourses(){
+  var q=(UI.adm.q||'').toLowerCase();var list=DB.courses.filter(function(c){return !q||(c.title+' '+c.cat).toLowerCase().indexOf(q)>-1;});
+  return atopH('Formations','<a class="btn" href="#/gestion/formations/new">Nouvelle formation</a>')+'<div class="card"><div class="row" style="margin-bottom:12px"><div class="fld" style="flex:1"><label for="aq" class="sr">Rechercher</label><input id="aq" type="search" placeholder="Rechercher une formation" data-asearch value="'+esc(UI.adm.q||'')+'"></div></div><div class="tbw"><table class="tb"><thead><tr><th>Formation</th><th>Catégorie</th><th>Niveau</th><th>Format</th><th>Prix</th><th>Inscrits</th><th>Statut</th></tr></thead><tbody>'+list.map(function(c){var n=DB.enrollments.filter(function(e){return e.courseId===c.id&&e.status!=='annulé';}).length;return '<tr class="clk" data-go="#/gestion/formations/'+esc(c.id)+'"><td><b>'+esc(c.title)+'</b><br><span class="muted small">'+esc(modsInfo(c))+'</span></td><td>'+esc(c.cat)+'</td><td>'+esc(c.level)+'</td><td>'+esc(c.format)+'</td><td>'+money(priceOf(c))+'</td><td>'+n+'</td><td>'+(c.published===false?tag('todo','Brouillon'):tag('ok','Publiée'))+'</td></tr>';}).join('')+'</tbody></table></div></div>';
+}
+function aCourseEd(id){
+  if(id==='new'){var nc={id:'c_'+uid(),slug:'nouvelle-formation-'+uid().slice(-4),title:'Nouvelle formation',cat:CATS[0],level:LEVELS[0],format:'En ligne',hours:5,price:0,path:null,pos:0,hook:'Phrase d’accroche.',objectives:['Premier objectif'],prereq:['Aucun'],audience:'',tools:[],modules:[{id:uid(),title:'Module 1',desc:'',lessons:[{id:uid(),title:'Première leçon',type:'video',dur:10,url:'',content:''}]}],trainer:S().name,published:false,popular:false,certificate:true,faq:[],desc:''};DB.courses.push(nc);save();setTimeout(function(){go('#/gestion/formations/'+nc.id);},0);return '<p>Création…</p>';}
+  var c=course(id);if(!c)return '<div class="card">Formation introuvable. <a href="#/gestion/formations">Retour</a></div>';
+  var ids={id:c.id};
+  var h=atopH(esc(c.title),'<a class="btn line" href="#/formation/'+esc(c.slug)+'" target="_blank">Voir la fiche publique</a><button class="btn danger sm" data-act="del-course" data-id="'+esc(c.id)+'">Supprimer</button>')+'<p><a href="#/gestion/formations">← Toutes les formations</a></p>';
+  h+='<div class="card"><h2>Informations</h2><div class="g">'+F('course',ids,'title','Titre',c.title,{w2:1})+F('course',ids,'slug','Adresse (sans espace)',c.slug)+F('course',ids,'cat','Catégorie',c.cat,{sel:CATS})+F('course',ids,'level','Niveau',c.level,{sel:LEVELS})+F('course',ids,'format','Format',c.format,{sel:FORMATS})+'<div class="fld"><label>Durée totale (calculée)</label><div class="calc"><b>'+hh(c)+' h</b><span class="muted small">somme des leçons + heures en présentiel</span></div></div>'+F('course',ids,'extraHours','Heures en présentiel ou en direct (hors leçons)',c.extraHours||0,{type:'number',num:1,min:0})+F('course',ids,'price','Prix (FCFA, 0 = gratuit)',c.price,{type:'number',num:1,min:0})+F('course',ids,'path','Parcours',c.path||'',{sel:[['','Aucun']].concat(DB.paths.map(function(p){return [p.id,p.title];}))})+F('course',ids,'pos','Niveau dans le parcours (1 à 5)',c.pos,{type:'number',num:1,min:0})+F('course',ids,'hook','Phrase d’accroche',c.hook,{w2:1})+F('course',ids,'trainer','Formateur',c.trainer)+F('course',ids,'audience','Public visé',c.audience,{w2:1})+'</div>'+F('course',ids,'desc','Description (facultatif)',c.desc,{area:1,rows:3})+'<div class="g">'+F('course',ids,'objectives','Vous apprendrez à (une ligne par objectif)',c.objectives,{lines:1,rows:4})+F('course',ids,'prereq','Prérequis (une ligne par prérequis)',c.prereq,{lines:1,rows:4})+'</div><div class="row">'+F('course',ids,'published','Publiée sur le site',c.published!==false,{chk:1})+F('course',ids,'popular','Badge « Populaire »',c.popular,{chk:1})+F('course',ids,'certificate','Délivre un certificat',c.certificate!==false,{chk:1})+'</div></div>';
+  h+='<div class="card"><div class="row between"><h2>Programme</h2><button class="btn sm" data-act="add-mod" data-id="'+esc(c.id)+'">Ajouter un module</button></div>'+c.modules.map(function(m,mi){
+    return '<div class="blk"><div class="row between"><b>Module '+(mi+1)+'</b><span class="row"><button class="btn sm line" data-act="mv-mod" data-id="'+esc(c.id)+'" data-m="'+esc(m.id)+'" data-d="-1" '+(mi===0?'disabled':'')+' aria-label="Monter">↑</button><button class="btn sm line" data-act="mv-mod" data-id="'+esc(c.id)+'" data-m="'+esc(m.id)+'" data-d="1" '+(mi===c.modules.length-1?'disabled':'')+' aria-label="Descendre">↓</button><button class="btn sm danger" data-act="del-mod" data-id="'+esc(c.id)+'" data-m="'+esc(m.id)+'">Supprimer</button></span></div>'+F('mod',{id:c.id,m:m.id},'title','Titre du module',m.title)+m.lessons.map(function(l,li){
+      return '<div class="les"><div class="g">'+F('les',{id:c.id,m:m.id,l:l.id},'title','Leçon '+(li+1),l.title,{w2:1})+F('les',{id:c.id,m:m.id,l:l.id},'type','Type',l.type,{sel:[['video','Vidéo'],['texte','Lecture'],['devoir','Exercice'],['quiz','Quiz final']],rr:1})+F('les',{id:c.id,m:m.id,l:l.id},'dur','Durée (min)'+(l.durAuto?' · automatique':''),l.dur,{type:'number',num:1,min:1})+'</div>'+(l.type==='video'?F('les',{id:c.id,m:m.id,l:l.id},'url','Lien de la vidéo (YouTube, Vimeo, fichier .mp4 ou Google Drive)',l.url,{ph:'https://…'})+(l.url?'<button class="btn sm line" data-act="redur" data-id="'+esc(c.id)+'" data-l="'+esc(l.id)+'">Calculer la durée depuis le lien</button>':''):'')+(l.type==='texte'||l.type==='devoir'?F('les',{id:c.id,m:m.id,l:l.id},'content',l.type==='devoir'?'Consigne de l’exercice':'Contenu',l.content,{area:1,rows:3}):'')+(l.type==='quiz'?'<p class="muted small">Les questions du quiz se règlent plus bas (« Quiz final »).</p>':'')+'<div class="row"><button class="btn sm line" data-act="mv-les" data-id="'+esc(c.id)+'" data-m="'+esc(m.id)+'" data-l="'+esc(l.id)+'" data-d="-1" aria-label="Monter">↑</button><button class="btn sm line" data-act="mv-les" data-id="'+esc(c.id)+'" data-m="'+esc(m.id)+'" data-l="'+esc(l.id)+'" data-d="1" aria-label="Descendre">↓</button><button class="btn sm danger" data-act="del-les" data-id="'+esc(c.id)+'" data-m="'+esc(m.id)+'" data-l="'+esc(l.id)+'">Supprimer la leçon</button></div></div>';}).join('')+'<button class="btn sm line" data-act="add-les" data-id="'+esc(c.id)+'" data-m="'+esc(m.id)+'">Ajouter une leçon</button></div>';}).join('')+'</div>';
+  var qz=c.quiz&&c.quiz.length?c.quiz:null;
+  h+='<div class="card"><h2>Quiz final</h2><p class="muted small">'+(qz?'Quiz personnalisé : '+qz.length+' question(s).':'Ce quiz utilise les questions de départ de la catégorie « '+esc(c.cat)+' ». Vous pouvez écrire les vôtres.')+' Une question par bloc de 4 lignes : la question, puis les réponses (la bonne en premier). Séparez les questions par une ligne vide.</p><textarea rows="9" data-k="quiztxt" data-id="'+esc(c.id)+'" placeholder="Question ?\nBonne réponse\nAutre réponse\nAutre réponse">'+esc(quizToText(qz||(DB.bank[c.cat]||[])))+'</textarea></div>';
+  return h;
+}
+function quizToText(Q){return Q.map(function(q){var o=q.o.slice();return q.q+'\n'+o[q.a]+'\n'+o.filter(function(_,i){return i!==q.a;}).join('\n');}).join('\n\n');}
+function textToQuiz(t){return String(t||'').split(/\n\s*\n/).map(function(b){var L=b.split('\n').map(function(x){return x.trim();}).filter(Boolean);if(L.length<3)return null;var correct=L[1],opts=L.slice(1);var order=opts.slice().sort(function(a,b){return a<b?-1:1;});return {q:L[0],o:order,a:order.indexOf(correct)};}).filter(Boolean);}
+/* ---------- parcours ---------- */
+function aPaths(){return atopH('Parcours','<a class="btn" href="#/gestion/parcours/new">Nouveau parcours</a>')+'<div class="g3">'+DB.paths.map(function(p){var n=DB.courses.filter(function(c){return c.path===p.id;}).length;return '<div class="card"><h2>'+esc(p.title)+'</h2><p class="muted">'+n+' formation(s) · '+money(p.price)+'</p><a class="btn sm" href="#/gestion/parcours/'+esc(p.id)+'">Modifier</a></div>';}).join('')+'</div>';}
+function aPathEd(id){
+  if(id==='new'){var np={id:'p_'+uid(),slug:'nouveau-parcours-'+uid().slice(-3),title:'Nouveau parcours',hook:'',why:'',audience:'',outcomes:[],fullPrice:0,price:0};DB.paths.push(np);save();setTimeout(function(){go('#/gestion/parcours/'+np.id);},0);return '<p>Création…</p>';}
+  var p=byId(DB.paths,id);if(!p)return '<div class="card">Parcours introuvable.</div>';var ids={id:p.id};
+  var cs=DB.courses.filter(function(c){return c.path===p.id;}).sort(function(a,b){return a.pos-b.pos;}),sum=0;cs.forEach(function(c){sum+=priceOf(c);});
+  return atopH(esc(p.title),'<button class="btn danger sm" data-act="del-path" data-id="'+esc(p.id)+'">Supprimer</button>')+'<p><a href="#/gestion/parcours">← Tous les parcours</a></p><div class="card"><div class="g">'+F('path',ids,'title','Titre',p.title,{w2:1})+F('path',ids,'slug','Adresse',p.slug)+F('path',ids,'price','Prix du parcours complet (FCFA)',p.price,{type:'number',num:1,min:0})+F('path',ids,'hook','Phrase d’accroche',p.hook,{w2:1})+F('path',ids,'audience','Public visé',p.audience,{w2:1})+'</div>'+F('path',ids,'why','Pourquoi ce parcours',p.why,{area:1,rows:3})+F('path',ids,'outcomes','Au bout du parcours, on sait… (une ligne par acquis)',p.outcomes,{lines:1,rows:5})+'<p class="muted">Somme des formations : <b>'+money(sum)+'</b>. Réglez le prix ci-dessus pour proposer une économie.</p><button class="btn sm line" data-act="path-sum" data-id="'+esc(p.id)+'">Utiliser la somme comme prix « normal »</button></div><div class="card"><h2>Formations du parcours</h2>'+(cs.length?cs.map(function(c){return '<div class="row between ln"><span><b>Niveau '+c.pos+'</b> · '+esc(c.title)+' · '+money(priceOf(c))+'</span><a class="btn sm line" href="#/gestion/formations/'+esc(c.id)+'">Modifier</a></div>';}).join(''):'<p class="muted">Aucune formation. Ouvrez une formation et choisissez ce parcours.</p>')+'</div>';
+}
+/* ---------- sessions ---------- */
+function aSessions(){
+  var all=DB.sessions.slice().sort(function(a,b){return a.start<b.start?1:-1;});
+  return atopH('Sessions','<a class="btn" href="#/gestion/sessions/new">Nouvelle session</a>')+'<div class="card"><div class="tbw"><table class="tb"><thead><tr><th>Date</th><th>Formation</th><th>Mode</th><th>Lieu</th><th>Inscrits</th><th>Statut</th></tr></thead><tbody>'+all.map(function(s){var c=course(s.courseId),f=sessionFull(s);return '<tr class="clk" data-go="#/gestion/sessions/'+s.id+'"><td><b>'+esc(fd(s.start,true))+'</b> '+esc(s.time)+'</td><td>'+esc(c?c.title:'—')+'</td><td>'+esc(s.mode)+'</td><td>'+esc(s.place||(s.link?'Visio':'—'))+'</td><td>'+f.n+' / '+s.capacity+'</td><td>'+(s.start<today()?tag('todo','Passée'):s.status==='annulée'?tag('no','Annulée'):tag('ok','Ouverte'))+'</td></tr>';}).join('')+'</tbody></table></div></div>';
+}
+function aSessEd(id){
+  if(id==='new'){var ns={id:'s_'+uid(),courseId:DB.courses[0]?DB.courses[0].id:'',mode:'Présentiel',start:addDays(today(),14),end:addDays(today(),14),time:'09:00',place:'',link:'',capacity:20,trainer:S().name,status:'ouverte',att:{}};DB.sessions.push(ns);save();setTimeout(function(){go('#/gestion/sessions/'+ns.id);},0);return '<p>Création…</p>';}
+  var s=byId(DB.sessions,id);if(!s)return '<div class="card">Session introuvable.</div>';var ids={id:s.id};
+  var regs=DB.enrollments.filter(function(e){return e.sessionId===s.id&&e.status!=='annulé';}),c=course(s.courseId);
+  var h=atopH('Session : '+esc(c?c.title:''),'<button class="btn danger sm" data-act="del-sess" data-id="'+esc(s.id)+'">Supprimer</button>')+'<p><a href="#/gestion/sessions">← Toutes les sessions</a></p>';
+  h+='<div class="card"><div class="g">'+F('sess',ids,'courseId','Formation',s.courseId,{sel:DB.courses.map(function(x){return [x.id,x.title];}),w2:1})+F('sess',ids,'mode','Mode',s.mode,{sel:['Présentiel','En ligne en direct']})+F('sess',ids,'start','Début',s.start,{type:'date'})+F('sess',ids,'end','Fin',s.end,{type:'date'})+F('sess',ids,'time','Heure',s.time,{type:'time'})+F('sess',ids,'capacity','Places',s.capacity,{type:'number',num:1,min:1})+F('sess',ids,'place','Lieu (présentiel)',s.place,{w2:1})+F('sess',ids,'link','Lien de la visio',s.link,{w2:1,ph:'https://meet.google.com/…'})+F('sess',ids,'trainer','Formateur',s.trainer)+F('sess',ids,'status','Statut',s.status,{sel:[['ouverte','Ouverte'],['annulée','Annulée']]})+'</div></div>';
+  h+='<div class="card"><div class="row between"><h2>Inscrits et présence ('+regs.length+')</h2><span class="row"><button class="btn sm line" data-act="sess-csv" data-id="'+esc(s.id)+'">Exporter la liste (CSV)</button></span></div>'+(regs.length?'<div class="tbw"><table class="tb"><thead><tr><th>Apprenant</th><th>Contact</th><th>Paiement</th><th>Présent</th><th></th></tr></thead><tbody>'+regs.map(function(e){var l=learner(e.learnerId);return '<tr><td><b>'+esc(l?l.name:'?')+'</b></td><td>'+esc(l?l.phone:'')+'</td><td>'+(e.status==='payé'?tag('ok','Payé'):tag('warn','En attente'))+'</td><td><input type="checkbox" data-att data-id="'+esc(s.id)+'" data-e="'+esc(e.learnerId)+'" aria-label="Présent"'+(s.att&&s.att[e.learnerId]?' checked':'')+'></td><td>'+(l&&l.phone?'<a class="btn sm line" target="_blank" rel="noopener noreferrer" href="'+esc(wa(l.phone,'Bonjour '+l.name.split(' ')[0]+', rappel : '+(c?c.title:'')+' le '+fd(s.start)+' à '+s.time+(s.place?' ('+s.place+')':'')+(s.link?' : '+s.link:'')+'. À bientôt ! '+S().name))+'">Rappel</a>':'')+'</td></tr>';}).join('')+'</tbody></table></div>':'<p class="muted">Aucun inscrit pour le moment.</p>')+'</div>';
+  return h;
+}
+
+/* =================== GESTION : inscriptions, apprenants, suivi, projets, planning, parrainage, réglages =================== */
+function accessMsg(e){
+  var l=learner(e.learnerId),c=course(e.courseId);
+  return 'Bonjour '+(l?l.name.split(' ')[0]:'')+', votre paiement est confirmé. Formation : '+(c?c.title:'')+'. Connectez-vous sur '+(S().siteUrl||'notre plateforme')+' (menu « Espace apprenant ») avec '+(l&&l.email?l.email+' ou ':'')+'votre téléphone et ce code d’accès : '+(l?l.code:'')+'. Bonne formation ! '+S().name;
+}
+function stTag(st){return st==='payé'?tag('ok','Payé'):st==='annulé'?tag('no','Annulé'):tag('warn','En attente');}
+function aEnrol(){
+  var f=UI.adm.ef||'',list=DB.enrollments.filter(function(e){return !f||e.status===f;}).sort(function(a,b){return a.date<b.date?1:-1;});
+  var h=atopH('Inscriptions et paiements','<button class="btn" data-act="enr-new">Inscrire quelqu’un</button>');
+  h+='<div class="card"><div class="row" style="margin-bottom:12px">'+[['','Toutes'],['en attente','En attente'],['payé','Payées'],['annulé','Annulées']].map(function(x){return '<button class="chip'+(f===x[0]?' on':'')+'" data-act="enr-f" data-v="'+x[0]+'">'+x[1]+'</button>';}).join('')+'</div>';
+  h+=list.length?'<div class="tbw"><table class="tb"><thead><tr><th>Date</th><th>Apprenant</th><th>Formation</th><th>Montant</th><th>Moyen</th><th>Statut</th><th></th></tr></thead><tbody>'+list.map(function(e){var l=learner(e.learnerId),c=course(e.courseId),s=e.sessionId?byId(DB.sessions,e.sessionId):null;
+    return '<tr><td>'+esc(fd(e.date,true))+'</td><td><b>'+esc(l?l.name:'?')+'</b><br><span class="muted small">'+esc(l?(l.phone||l.email):'')+'</span></td><td>'+esc(c?c.title:'—')+(s?'<br><span class="muted small">Session du '+esc(fd(s.start,true))+'</span>':'')+(e.ref?'<br><span class="muted small">Parrain : '+esc(e.ref)+'</span>':'')+'</td><td>'+money(e.amount)+'</td><td>'+esc(e.method||'')+'</td><td>'+stTag(e.status)+'</td><td class="nw">'+(e.status==='en attente'?'<button class="btn sm" data-act="enr-pay" data-id="'+esc(e.id)+'">Valider le paiement</button> ':'')+(e.status==='payé'&&l?'<button class="btn sm line" data-act="enr-msg" data-id="'+esc(e.id)+'">Renvoyer le code</button> ':'')+(e.status!=='annulé'?'<button class="btn sm danger" data-act="enr-cancel" data-id="'+esc(e.id)+'">Annuler</button>':'')+'</td></tr>';}).join('')+'</tbody></table></div>':'<p class="muted">Aucune inscription.</p>';
+  return h+'</div>';
+}
+function aLearners(){
+  var q=(UI.adm.lq||'').toLowerCase();var list=DB.learners.filter(function(l){return !q||(l.name+' '+l.email+' '+l.phone).toLowerCase().indexOf(q)>-1;});
+  return atopH('Apprenants')+'<div class="card"><div class="fld"><label for="lq" class="sr">Rechercher</label><input id="lq" type="search" placeholder="Rechercher un apprenant" data-lsearch value="'+esc(UI.adm.lq||'')+'"></div>'+(list.length?'<div class="tbw"><table class="tb"><thead><tr><th>Apprenant</th><th>Contact</th><th>Code d’accès</th><th>Formations</th><th></th></tr></thead><tbody>'+list.map(function(l){var es=DB.enrollments.filter(function(e){return e.learnerId===l.id&&e.status!=='annulé';});
+    return '<tr><td><b>'+esc(l.name)+'</b><br><span class="muted small">Depuis le '+esc(fd(l.created,true))+'</span></td><td>'+esc(l.phone)+'<br><span class="muted small">'+esc(l.email)+'</span></td><td><span class="mono">'+esc(l.code)+'</span></td><td>'+(es.map(function(e){var c=course(e.courseId);return '<div class="small">'+esc(c?c.title:'')+' · <b>'+progressOf(e)+' %</b>'+(e.cert?' · '+tag('ok','Certifié'):'')+'</div>';}).join('')||'<span class="muted">—</span>')+'</td><td class="nw"><button class="btn sm line" data-act="lrn-code" data-id="'+esc(l.id)+'">Nouveau code</button> <button class="btn sm danger" data-act="lrn-del" data-id="'+esc(l.id)+'">Supprimer</button></td></tr>';}).join('')+'</tbody></table></div>':'<p class="muted">Aucun apprenant.</p>')+'</div>';
+}
+function aSuivi(){
+  var qs=DB.questions.slice().sort(function(a,b){return (a.answer?1:0)-(b.answer?1:0)||(a.date<b.date?1:-1);}),dv=[];
+  DB.enrollments.forEach(function(e){Object.keys(e.answers||{}).forEach(function(k){var c=course(e.courseId),L=c?lessonsOf(c).filter(function(x){return x.l.id===k;})[0]:null;if(L)dv.push({e:e,l:L.l,a:e.answers[k],fb:(e.fb||{})[k]||''});});});
+  dv.sort(function(a,b){return (a.fb?1:0)-(b.fb?1:0);});
+  var h=atopH('Questions et devoirs')+'<div class="card"><h2>Questions des apprenants</h2>'+(qs.length?qs.map(function(q){var l=learner(q.learnerId);return '<div class="blk"><div class="small muted">'+esc(l?l.name:'?')+' · '+esc(fd(q.date,true))+(q.answer?'':' '+tag('warn','Sans réponse'))+'</div><p>'+esc(q.text)+'</p><div class="fld"><label for="qa_'+esc(q.id)+'" class="sr">Votre réponse</label><textarea id="qa_'+esc(q.id)+'" rows="2" placeholder="Votre réponse">'+esc(q.answer||'')+'</textarea></div><button class="btn sm" data-act="q-answer" data-id="'+esc(q.id)+'">'+(q.answer?'Mettre à jour':'Répondre')+'</button></div>';}).join(''):'<p class="muted">Aucune question.</p>')+'</div>';
+  h+='<div class="card"><h2>Devoirs rendus</h2>'+(dv.length?dv.map(function(x,i){var l=learner(x.e.learnerId);return '<div class="blk"><div class="small muted">'+esc(l?l.name:'?')+' · '+esc(x.l.title)+' · '+esc(fd(x.a.date,true))+(x.fb?'':' '+tag('warn','À corriger'))+'</div><p class="pre">'+esc(x.a.text)+'</p><div class="fld"><label for="fb_'+i+'" class="sr">Retour</label><textarea id="fb_'+i+'" rows="2" placeholder="Votre retour au apprenant">'+esc(x.fb)+'</textarea></div><button class="btn sm" data-act="dv-fb" data-e="'+esc(x.e.id)+'" data-l="'+esc(x.l.id)+'" data-i="'+i+'">Envoyer le retour</button></div>';}).join(''):'<p class="muted">Aucun devoir rendu.</p>')+'</div>';
+  return h;
+}
+/* ---------- projets et tâches ---------- */
+function pStat(p){var n=p.tasks.length,d=p.tasks.filter(function(k){return k.status==='done';}).length;return {n:n,d:d,pc:n?Math.round(d/n*100):0,late:p.tasks.filter(function(k){return k.status!=='done'&&k.due&&k.due<today();}).length};}
+function projCard(p){var s=pStat(p);return '<a class="pj" href="#/gestion/projets/'+esc(p.id)+'"><div class="row between"><b>'+esc(p.name)+'</b>'+tag(p.status==='terminé'?'ok':p.status==='en cours'?'lv':'todo',p.status)+'</div><div class="bar"><i style="width:'+s.pc+'%"></i></div><div class="small muted">'+s.d+'/'+s.n+' tâches terminées'+(s.late?' · <span class="bad">'+s.late+' en retard</span>':'')+(p.end?' · fin '+esc(fd(p.end,true)):'')+'</div></a>';}
+function aProjects(){return atopH('Projets et tâches','<button class="btn" data-act="proj-new">Nouveau projet</button>')+(DB.projects.length?'<div class="g3">'+DB.projects.map(projCard).join('')+'</div>':'<div class="card"><p class="muted">Aucun projet. Créez-en un pour planifier vos tâches.</p></div>');}
+function aProject(id){
+  var p=byId(DB.projects,id);if(!p)return '<div class="card">Projet introuvable. <a href="#/gestion/projets">Retour</a></div>';var ids={id:p.id},s=pStat(p);
+  var h=atopH(esc(p.name),'<button class="btn danger sm" data-act="del-proj" data-id="'+esc(p.id)+'">Supprimer</button>')+'<p><a href="#/gestion/projets">← Tous les projets</a></p>';
+  h+='<div class="card"><div class="g">'+F('proj',ids,'name','Nom du projet',p.name,{w2:1})+F('proj',ids,'status','Statut',p.status,{sel:['planifié','en cours','terminé','suspendu']})+F('proj',ids,'owner','Responsable',p.owner)+F('proj',ids,'start','Début',p.start,{type:'date'})+F('proj',ids,'end','Fin prévue',p.end,{type:'date'})+'</div>'+F('proj',ids,'desc','Description',p.desc,{area:1,rows:2})+'<div class="bar"><i style="width:'+s.pc+'%"></i></div><p class="small muted">'+s.pc+' % terminé · '+s.d+'/'+s.n+' tâches'+(s.late?' · '+s.late+' en retard':'')+'</p></div>';
+  h+='<div class="kan">'+TSTAT.map(function(st,si){var ks=p.tasks.filter(function(k){return k.status===st[0];});
+    return '<section class="kcol"><div class="row between"><h2>'+st[1]+' <span class="cnt">'+ks.length+'</span></h2><button class="btn sm line" data-act="add-task" data-id="'+esc(p.id)+'" data-s="'+st[0]+'">+ Tâche</button></div>'+ks.map(function(k){var late=k.status!=='done'&&k.due&&k.due<today();var tid={id:p.id,m:k.id};
+      return '<div class="task p-'+esc(k.prio)+(late?' late':'')+'">'+F('task',tid,'title','Tâche',k.title)+'<div class="g">'+F('task',tid,'assignee','Qui',k.assignee)+F('task',tid,'due','Échéance',k.due,{type:'date'})+F('task',tid,'prio','Priorité',k.prio,{sel:PRIO})+F('task',tid,'status','Étape',k.status,{sel:TSTAT,rr:1})+'</div><div class="row between"><span>'+(late?'<span class="bad small">En retard</span>':'')+'</span><span class="row"><button class="btn sm line" data-act="mv-task" data-id="'+esc(p.id)+'" data-m="'+esc(k.id)+'" data-d="-1" '+(si===0?'disabled':'')+' aria-label="Étape précédente">←</button><button class="btn sm line" data-act="mv-task" data-id="'+esc(p.id)+'" data-m="'+esc(k.id)+'" data-d="1" '+(si===2?'disabled':'')+' aria-label="Étape suivante">→</button><button class="btn sm danger" data-act="del-task" data-id="'+esc(p.id)+'" data-m="'+esc(k.id)+'" aria-label="Supprimer la tâche">×</button></span></div></div>';}).join('')+(ks.length?'':'<p class="muted small">Rien ici.</p>')+'</section>';}).join('')+'</div>';
+  return h;
+}
+/* ---------- planning ---------- */
+function aPlanning(){
+  var mon=UI.adm.mon||today().slice(0,7);var y=+mon.slice(0,4),m=+mon.slice(5,7);var first=new Date(y,m-1,1),days=new Date(y,m,0).getDate(),off=(first.getDay()+6)%7;
+  var ev={};function add(d,cls,t,href){(ev[d]=ev[d]||[]).push({c:cls,t:t,h:href});}
+  DB.sessions.forEach(function(s){if(s.status==='annulée')return;var c=course(s.courseId),d=s.start,n=0;while(d<=s.end&&n<31){add(d,'s',(s.time||'')+' '+(c?c.title:'Session'),'#/gestion/sessions/'+s.id);d=addDays(d,1);n++;}});
+  DB.projects.forEach(function(p){p.tasks.forEach(function(k){if(k.due&&k.status!=='done')add(k.due,k.due<today()?'l':'t',k.title,'#/gestion/projets/'+p.id);});if(p.end)add(p.end,'p','Fin : '+p.name,'#/gestion/projets/'+p.id);});
+  var pm=m===1?(y-1)+'-12':y+'-'+p2(m-1),nm=m===12?(y+1)+'-01':y+'-'+p2(m+1);
+  var h=atopH('Planning','<button class="btn line sm" data-act="mon" data-v="'+pm+'" aria-label="Mois précédent">←</button><b class="monl">'+esc(first.toLocaleDateString('fr-FR',{month:'long',year:'numeric'}))+'</b><button class="btn line sm" data-act="mon" data-v="'+nm+'" aria-label="Mois suivant">→</button><button class="btn line sm" data-act="mon" data-v="">Aujourd’hui</button>');
+  h+='<div class="card"><p class="small"><span class="lg s"></span> Sessions de formation <span class="lg t"></span> Échéances de tâches <span class="lg l"></span> En retard <span class="lg p"></span> Fin de projet</p><div class="cal">'+['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].map(function(d){return '<div class="ch">'+d+'</div>';}).join('');
+  for(var i=0;i<off;i++)h+='<div class="cd out"></div>';
+  for(var d=1;d<=days;d++){var iso=mon+'-'+p2(d);h+='<div class="cd'+(iso===today()?' now':'')+'"><span class="dn">'+d+'</span>'+(ev[iso]||[]).slice(0,4).map(function(e){return '<a class="ev '+e.c+'" href="'+e.h+'" title="'+esc(e.t)+'">'+esc(e.t)+'</a>';}).join('')+((ev[iso]||[]).length>4?'<span class="small muted">+'+((ev[iso]||[]).length-4)+'</span>':'')+'</div>';}
+  return h+'</div></div>';
+}
+/* ---------- parrainage et contacts ---------- */
+function referrerList(){
+  var map={};(DB.referrers||[]).forEach(function(r){map[r.code]={code:r.code,name:r.name,phone:r.phone};});
+  DB.learners.forEach(function(l){var c=refOf(l.phone);if(c&&!map[c])map[c]={code:c,name:l.name,phone:l.phone};});
+  return Object.keys(map).map(function(k){var r=map[k],es=DB.enrollments.filter(function(e){return e.ref===r.code&&e.status==='payé';}),sum=0;es.forEach(function(e){sum+=+e.amount||0;});r.es=es;r.sum=sum;r.comm=Math.round(sum*S().refPct/100);return r;}).filter(function(r){return r.es.length||(DB.referrers||[]).some(function(x){return x.code===r.code;});});
+}
+function aReferral(){
+  var rs=referrerList(),h=atopH('Parrainage et contacts');
+  h+='<div class="card"><h2>Parrains</h2><p class="muted small">Remise filleul : '+S().refDisc+' %, commission parrain : '+S().refPct+' % du montant payé (modifiable dans les réglages).</p>'+(rs.length?'<div class="tbw"><table class="tb"><thead><tr><th>Parrain</th><th>Code</th><th>Filleuls payants</th><th>Montant généré</th><th>Commission</th><th></th></tr></thead><tbody>'+rs.map(function(r){var due=r.es.filter(function(e){return !e.comm;}).reduce(function(a,e){return a+Math.round((+e.amount||0)*S().refPct/100);},0);return '<tr><td><b>'+esc(r.name)+'</b><br><span class="muted small">'+esc(r.phone)+'</span></td><td><span class="mono">'+esc(r.code)+'</span></td><td>'+r.es.length+'</td><td>'+money(r.sum)+'</td><td>'+money(r.comm)+'<br><span class="small muted">À verser : '+money(due)+'</span></td><td>'+r.es.map(function(e){var l=learner(e.learnerId);return '<label class="small nw"><input type="checkbox" data-k="enr" data-f="comm" data-id="'+esc(e.id)+'"'+(e.comm?' checked':'')+'> versée · '+esc(l?l.name.split(' ')[0]:'')+'</label>';}).join('<br>')+'</td></tr>';}).join('')+'</tbody></table></div>':'<p class="muted">Aucun parrain pour le moment. Les personnes qui demandent leur lien sur la page « Parrainage » apparaîtront ici.</p>')+'</div>';
+  h+='<div class="card"><h2>Contacts du guide gratuit ('+DB.leads.length+')</h2>'+(DB.leads.length?'<div class="tbw"><table class="tb"><thead><tr><th>Date</th><th>Prénom</th><th>Contact</th><th></th></tr></thead><tbody>'+DB.leads.slice().reverse().map(function(l){var w=wa(l.contact,'Bonjour '+l.name+', voici le guide gratuit de '+S().name+'. ');return '<tr><td>'+esc(fd(l.date,true))+'</td><td>'+esc(l.name)+'</td><td>'+esc(l.contact)+'</td><td class="nw">'+(digits(l.contact).length>=8?'<a class="btn sm line" target="_blank" rel="noopener noreferrer" href="'+esc(w)+'">WhatsApp</a> ':'')+'<button class="btn sm danger" data-act="lead-del" data-id="'+esc(l.id)+'">Retirer</button></td></tr>';}).join('')+'</tbody></table></div><button class="btn sm line" data-act="leads-csv">Exporter (CSV)</button>':'<p class="muted">Aucun contact.</p>')+'</div>';
+  return h;
+}
+/* ---------- réglages ---------- */
+function faqToText(){return (DB.faq||[]).map(function(q){return q[0]+' | '+q[1];}).join('\n');}
+function aSettings(){
+  var s=S(),ids={};
+  var h=atopH('Réglages');
+  h+='<div class="card"><h2>Identité et contact</h2><div class="g">'+F('set',ids,'name','Nom de l’organisme',s.name)+F('set',ids,'tagline','Slogan',s.tagline,{w2:1})+F('set',ids,'wa','WhatsApp (avec indicatif, sans +)',s.wa)+F('set',ids,'email','E-mail',s.email)+F('set',ids,'phone','Téléphone affiché',s.phone)+F('set',ids,'address','Adresse / zones',s.address,{w2:1})+F('set',ids,'calendly','Lien de prise de rendez-vous',s.calendly,{w2:1})+F('set',ids,'siteUrl','Adresse web de la plateforme (pour les messages d’accès)',s.siteUrl||'',{w2:1,ph:'https://…'})+'</div></div>';
+  h+='<div class="card"><h2>Paiement et parrainage</h2>'+F('set',ids,'pay','Texte sur les moyens de paiement',s.pay,{area:1,rows:2})+F('set',ids,'payNote','Consigne de paiement',s.payNote)+'<div class="g">'+F('set',ids,'refDisc','Remise du filleul (%)',s.refDisc,{type:'number',num:1,min:0})+F('set',ids,'refPct','Commission du parrain (%)',s.refPct,{type:'number',num:1,min:0})+'</div></div>';
+  h+='<div class="card"><h2>Questions fréquentes (page d’accueil)</h2><p class="muted small">Une ligne par question : « Question | Réponse ». Laissez vide pour garder les questions de départ.</p><textarea rows="6" data-k="set" data-f="faqtxt">'+esc(faqToText())+'</textarea></div>';
+  h+='<div class="card"><h2>Connexion Google (facultatif)</h2><p class="muted small">Collez l’adresse de votre service Google (le même que celui des devis). Chaque nouvelle inscription y sera aussi enregistrée.</p>'+F('set',ids,'svcUrl','Adresse du service',s.svcUrl,{ph:'https://script.google.com/macros/s/…/exec'})+'</div>';
+  h+='<div class="card"><h2>Sécurité</h2><p class="muted small">Protégez cet espace par un code. '+(hasPin()?'Un code est actif.':'Aucun code n’est défini : toute personne qui ouvre ce fichier peut gérer.')+'</p><div class="row"><div class="fld"><label for="newpin">Nouveau code</label><input id="newpin" type="password" autocomplete="new-password"></div><button class="btn" data-act="set-pin">Enregistrer le code</button>'+(hasPin()?'<button class="btn line" data-act="clear-pin">Retirer le code</button>':'')+'</div></div>';
+  h+='<div class="card"><h2>Publier et sauvegarder</h2><p class="muted small">« Exporter le site public » crée un fichier à mettre en ligne : il contient le catalogue, les parcours, les sessions et les formulaires d’inscription (envoyés par WhatsApp), sans l’espace de gestion. Pensez à sauvegarder régulièrement : vos données sont enregistrées dans ce navigateur.</p><div class="row"><button class="btn" data-act="export-vitrine">Exporter le site public</button><button class="btn line" data-act="backup">Télécharger une sauvegarde</button><label class="btn line" for="restore">Restaurer une sauvegarde</label><input id="restore" type="file" accept=".json,application/json" data-restore class="sr"><button class="btn danger" data-act="reset-demo">Remettre les données de démonstration</button></div></div>';
+  return h;
+}
+
+/* =================== MOTEUR : affichage, événements, formulaires =================== */
+function ssGet(k){try{return sessionStorage.getItem(k);}catch(e){return null;}}
+function ssSet(k,v){try{if(v==null)sessionStorage.removeItem(k);else sessionStorage.setItem(k,v);}catch(e){}}
+function render(){
+  var app=$('#app');if(!app)return;var r=route();
+  var q={};try{(location.hash.split('?')[1]||'').split('&').forEach(function(x){var kv=x.split('=');if(kv[0])q[kv[0]]=decodeURIComponent(kv[1]||'');});}catch(e){}
+  if(q.ref&&/^GSC[A-Z0-9]{5}$/i.test(q.ref))UI.f.ref=q.ref.toUpperCase();
+  var ae=document.activeElement,fid=ae&&ae.id,fs=ae&&ae.selectionStart,y=window.scrollY,same=UI.lastHash===location.hash;UI.lastHash=location.hash;
+  var html;
+  if(r.v==='gestion'&&!VITRINE){html=admRoute(r);document.title='Gestion · '+S().name;}
+  else{
+    var body=pubRoute(r);
+    if(body===null){
+      if(r.v==='connexion')body=pageLogin();else if(r.v==='espace')body=r.a?pagePlayer(r.a,r.b):pageSpace();else body=notFound();
+    }
+    html=header(r)+'<main id="main">'+body+'</main>'+footer();document.title=S().name+' · Formations';
+  }
+  app.innerHTML=html+UI.modal;
+  if(!same)window.scrollTo(0,0);else window.scrollTo(0,y);
+  if(fid&&/^(f_q|aq|lq)$/.test(fid)){var n=document.getElementById(fid);if(n){n.focus();try{n.setSelectionRange(fs,fs);}catch(e){}}}
+  var cl=$('.modal [autofocus],.modal input,.modal textarea');if(UI.modal&&cl&&!UI.modalFocused){cl.focus();UI.modalFocused=1;}if(!UI.modal)UI.modalFocused=0;
+}
+/* ---------- inscriptions ---------- */
+function findLearner(phone,email){var d=digits(phone).slice(-9),em=String(email||'').toLowerCase();return DB.learners.filter(function(l){return (em&&l.email&&l.email.toLowerCase()===em)||(d.length>=8&&digits(l.phone).slice(-9)===d);})[0];}
+function makeEnrol(o){
+  var l=findLearner(o.phone,o.email);
+  if(!l){l={id:'l_'+uid(),name:o.name,email:o.email||'',phone:o.phone,code:rcode(4)+'-'+rcode(4),created:today()};DB.learners.push(l);}
+  var out=[];
+  o.items.forEach(function(it){
+    var ex=DB.enrollments.filter(function(e){return e.learnerId===l.id&&e.courseId===it.c.id&&e.status!=='annulé';})[0];
+    if(ex){out.push(ex);return;}
+    var e={id:'e_'+uid(),learnerId:l.id,courseId:it.c.id,status:o.status,amount:it.amount,method:o.method,date:today(),done:{},quiz:null,cert:null,ref:o.ref||'',sessionId:o.items.length===1?(o.sessionId||''):''};
+    DB.enrollments.push(e);out.push(e);
+  });
+  save();return {l:l,es:out};
+}
+function enrolItems(kind,id,ref){
+  var disc=refValid(ref)?S().refDisc/100:0,items=[],title='';
+  if(kind==='p'){var p=byId(DB.paths,id);if(!p)return null;title=p.title;var cs=DB.courses.filter(function(c){return c.path===p.id;}).sort(function(a,b){return a.pos-b.pos;}),sum=0;cs.forEach(function(c){sum+=priceOf(c);});cs.forEach(function(c){items.push({c:c,amount:Math.round((sum?p.price*priceOf(c)/sum:0)*(1-disc))});});}
+  else{var c=course(id);if(!c)return null;title=c.title;items.push({c:c,amount:Math.round(priceOf(c)*(1-disc))});}
+  return {items:items,title:title,total:items.reduce(function(a,x){return a+x.amount;},0)};
+}
+function submitEnrol(f){
+  var d=new FormData(f),kind=f.dataset.kind,id=f.dataset.id,name=String(d.get('name')||'').trim(),phone=String(d.get('phone')||'').trim(),email=String(d.get('email')||'').trim(),method=String(d.get('method')||'Wave'),sid=String(d.get('session')||''),ref=String(d.get('ref')||'').trim().toUpperCase(),msg=$('#enmsg');
+  if(name.length<2){msg.textContent='Indiquez votre nom et prénom.';return;}
+  if(digits(phone).length<8){msg.textContent='Indiquez un numéro de téléphone valide.';return;}
+  if(email&&!/^\S+@\S+\.\S+$/.test(email)){msg.textContent='Cette adresse e-mail semble incorrecte.';return;}
+  if(ref&&refOf(phone)===ref)ref='';
+  if(ref&&!refValid(ref)){msg.textContent='Ce code de parrainage n’existe pas. Corrigez-le ou laissez la case vide.';return;}
+  var it=enrolItems(kind,id,ref);if(!it){msg.textContent='Formation introuvable.';return;}
+  var free=it.total===0,T={name:name,title:it.title,amount:it.total,method:method,ref:ref,free:false};
+  var summary='Bonjour, je m’inscris à « '+it.title+' ». Nom : '+name+', tél : '+phone+(email?', e-mail : '+email:'')+(ref?', code parrain : '+ref:'')+'. Montant : '+money(it.total)+', paiement par '+method+'.';
+  var order={type:'commande',name:name,phone:phone,email:email,subject:'Inscription : '+it.title,message:summary,montant:it.total,paiement:method.slice(0,20)};
+  if(VITRINE){sendOrder(order);UI.thanks=T;window.open(wlink(summary),'_blank','noopener');go('#/merci/x');return;}
+  var res=makeEnrol({name:name,phone:phone,email:email,items:it.items,method:method,ref:ref,sessionId:sid,status:free?'payé':'en attente'});
+  sendOrder(order);
+  UI.thanks=T;if(free){T.free=true;T.code=res.l.code;}
+  go('#/merci/'+res.es[0].id);
+}
+function payModal(e){
+  var l=learner(e.learnerId),m=accessMsg(e);
+  modal('<h2>Accès de '+esc(l.name)+'</h2><p>Code d’accès :</p><div class="codebox">'+esc(l.code)+'</div><p class="muted small">Envoyez ce code à l’apprenant. Il se connecte avec '+(l.email?'son e-mail ou ':'')+'son téléphone.</p><div class="row">'+(digits(l.phone).length>=8?'<a class="btn" target="_blank" rel="noopener noreferrer" href="'+esc(wa(l.phone,m))+'">Envoyer par WhatsApp</a>':'')+'<button class="btn line" data-act="copy" data-t="'+esc(m)+'">Copier le message</button><button class="btn line" data-act="close">Fermer</button></div>');
+}
+/* ---------- champs modifiables de la gestion ---------- */
+function setField(el){
+  var k=el.dataset.k,f=el.dataset.f,id=el.dataset.id,v;
+  if(el.type==='checkbox')v=el.checked;else if(el.dataset.num)v=+el.value||0;else if(el.dataset.lines)v=el.value.split('\n').map(function(x){return x.trim();}).filter(Boolean);else v=el.value;
+  var o=null;
+  if(k==='course'){o=course(id);if(o&&f==='slug')v=slugify(v);if(o&&f==='path'&&!v)v=null;}
+  else if(k==='mod'||k==='les'){var c=course(id);if(c){var m=(c.modules||[]).filter(function(x){return x.id===el.dataset.m;})[0];o=k==='mod'?m:(m&&m.lessons.filter(function(x){return x.id===el.dataset.l;})[0]);}}
+  else if(k==='path')o=byId(DB.paths,id);else if(k==='sess')o=byId(DB.sessions,id);else if(k==='proj')o=byId(DB.projects,id);
+  else if(k==='task'){var p=byId(DB.projects,id);o=p&&byId(p.tasks,el.dataset.m);}
+  else if(k==='set')o=DB.settings;else if(k==='enr')o=byId(DB.enrollments,id);else if(k==='learner')o=learner(id);
+  if(k==='quiztxt'){var c2=course(id);if(c2){c2.quiz=textToQuiz(el.value);}save();return;}
+  if(k==='set'&&f==='faqtxt'){var L=el.value.split('\n').map(function(x){var i=x.indexOf('|');return i<0?null:[x.slice(0,i).trim(),x.slice(i+1).trim()];}).filter(function(x){return x&&x[0]&&x[1];});if(L.length)DB.faq=L;else delete DB.faq;save();return;}
+  if(!o)return;o[f]=v;if(k==='les'&&f==='dur')o.durAuto=false;save();if(k==='les'&&f==='url'&&v)autoDur(id,el.dataset.l);
+}
+function mv(arr,i,d){var j=i+d;if(j<0||j>=arr.length)return;var t=arr[i];arr[i]=arr[j];arr[j]=t;}
+function csvCell(x){x=String(x==null?'':x);return /[",;\n]/.test(x)?'"'+x.replace(/"/g,'""')+'"':x;}
+function exportVitrine(){
+  var d=JSON.parse(JSON.stringify(DB));
+  d.courses=d.courses.filter(function(c){return c.published!==false;});
+  d.learners=[];d.questions=[];d.leads=[];d.projects=[];d.referrers=[];d.settings.svcUrl=d.settings.svcUrl||'';
+  d.enrollments=DB.enrollments.filter(function(e){return e.sessionId&&e.status!=='annulé';}).map(function(e){return {sessionId:e.sessionId,status:e.status};});
+  var js=$('#appjs').textContent,css=$('#appcss').textContent;
+  var data=JSON.stringify(d).replace(/</g,'\\u003c').split(String.fromCharCode(8232)).join('\\u2028').split(String.fromCharCode(8233)).join('\\u2029');
+  var html='<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(S().name)+' · Formations</title><style id="appcss">'+css+'</style></head><body><div id="app"></div><script>window.__VITRINE__=true;window.__DATA__='+data+';<\/script><script id="appjs">'+js+'<\/script></body></html>';
+  download('formations-site-public.html',html,'text/html');toast('Site public exporté : mettez ce fichier en ligne.');
+}
+/* ---------- clics ---------- */
+var ACTS={
+  menu:function(el){var n=$('#nav');n.classList.toggle('open');el.setAttribute('aria-expanded',n.classList.contains('open'));},
+  scroll:function(el){var t=document.getElementById(el.dataset.t);if(t)t.scrollIntoView({behavior:'smooth'});},
+  'reset-f':function(){UI.f={cat:'',lvl:'',fmt:'',q:'',ref:UI.f.ref};render();},
+  copy:function(el){var t=el.dataset.t;try{navigator.clipboard.writeText(t).then(function(){toast('Copié');},function(){toast('Copie impossible');});}catch(e){toast('Copie impossible');}},
+  print:function(){window.print();},
+  logout:function(){ssSet(KEYLRN,null);go('#/');render();},
+  'adm-out':function(){ssSet('gscLmsAdm',null);go('#/');render();},
+  close:function(){closeModal();},
+  'close-bg':function(el,ev){if(ev.target===el)closeModal();},
+  'lesson-done':function(el){var e=enr(el.dataset.e);e.done=e.done||{};e.done[el.dataset.l]=true;save();render();},
+  'get-cert':function(el){var e=enr(el.dataset.e);if(!canCertify(e))return;issueCert(e);go('#/espace/'+e.id+'/certificat');},
+  /* gestion */
+  redur:function(el){autoDur(el.dataset.id,el.dataset.l);},
+  'del-course':function(el){if(!confirm('Supprimer cette formation, ses sessions et ses inscriptions ?'))return;var id=el.dataset.id;DB.courses=DB.courses.filter(function(c){return c.id!==id;});DB.sessions=DB.sessions.filter(function(s){return s.courseId!==id;});DB.enrollments=DB.enrollments.filter(function(e){return e.courseId!==id;});save();go('#/gestion/formations');},
+  'add-mod':function(el){var c=course(el.dataset.id);c.modules.push({id:uid(),title:'Nouveau module',desc:'',lessons:[{id:uid(),title:'Nouvelle leçon',type:'texte',dur:10,url:'',content:''}]});save();render();},
+  'del-mod':function(el){if(!confirm('Supprimer ce module et ses leçons ?'))return;var c=course(el.dataset.id);c.modules=c.modules.filter(function(m){return m.id!==el.dataset.m;});save();render();},
+  'mv-mod':function(el){var c=course(el.dataset.id),i=c.modules.map(function(m){return m.id;}).indexOf(el.dataset.m);mv(c.modules,i,+el.dataset.d);save();render();},
+  'add-les':function(el){var c=course(el.dataset.id),m=byId(c.modules,el.dataset.m);m.lessons.push({id:uid(),title:'Nouvelle leçon',type:'texte',dur:10,url:'',content:''});save();render();},
+  'del-les':function(el){var c=course(el.dataset.id),m=byId(c.modules,el.dataset.m);m.lessons=m.lessons.filter(function(l){return l.id!==el.dataset.l;});save();render();},
+  'mv-les':function(el){var c=course(el.dataset.id),m=byId(c.modules,el.dataset.m),i=m.lessons.map(function(l){return l.id;}).indexOf(el.dataset.l);mv(m.lessons,i,+el.dataset.d);save();render();},
+  'del-path':function(el){if(!confirm('Supprimer ce parcours ? Les formations restent, sans parcours.'))return;DB.courses.forEach(function(c){if(c.path===el.dataset.id)c.path=null;});DB.paths=DB.paths.filter(function(p){return p.id!==el.dataset.id;});save();go('#/gestion/parcours');},
+  'path-sum':function(el){var p=byId(DB.paths,el.dataset.id),s=0;DB.courses.forEach(function(c){if(c.path===p.id)s+=priceOf(c);});p.fullPrice=s;save();toast('Prix « normal » : '+money(s));render();},
+  'del-sess':function(el){if(!confirm('Supprimer cette session ?'))return;DB.sessions=DB.sessions.filter(function(s){return s.id!==el.dataset.id;});DB.enrollments.forEach(function(e){if(e.sessionId===el.dataset.id)e.sessionId='';});save();go('#/gestion/sessions');},
+  'sess-csv':function(el){var s=byId(DB.sessions,el.dataset.id),rows=[['Nom','Téléphone','E-mail','Paiement','Présent']];DB.enrollments.filter(function(e){return e.sessionId===s.id&&e.status!=='annulé';}).forEach(function(e){var l=learner(e.learnerId);rows.push([l.name,l.phone,l.email,e.status,s.att&&s.att[l.id]?'oui':'non']);});download('session-'+s.start+'.csv','﻿'+rows.map(function(r){return r.map(csvCell).join(';');}).join('\n'),'text/csv');},
+  'enr-new':function(){modal('<h2>Inscrire quelqu’un</h2><form data-form="manual"><div class="g2"><div class="fld"><label for="m1">Nom et prénom</label><input id="m1" name="name" required></div><div class="fld"><label for="m2">Téléphone</label><input id="m2" name="phone" required></div><div class="fld"><label for="m3">E-mail</label><input id="m3" name="email" type="email"></div><div class="fld"><label for="m4">Formation</label><select id="m4" name="course">'+DB.courses.map(function(c){return '<option value="'+esc(c.id)+'">'+esc(c.title)+'</option>';}).join('')+'</select></div><div class="fld"><label for="m5">Paiement</label><select id="m5" name="status"><option value="payé">Déjà payé</option><option value="en attente">En attente</option></select></div></div><div class="row"><button class="btn" type="submit">Inscrire</button><button type="button" class="btn line" data-act="close">Annuler</button></div></form>');},
+  'enr-f':function(el){UI.adm.ef=el.dataset.v;render();},
+  'enr-pay':function(el){var e=enr(el.dataset.id);e.status='payé';e.paid=today();save();payModal(e);},
+  'enr-msg':function(el){payModal(enr(el.dataset.id));},
+  'enr-cancel':function(el){if(!confirm('Annuler cette inscription ?'))return;enr(el.dataset.id).status='annulé';save();render();},
+  'lrn-code':function(el){var l=learner(el.dataset.id);l.code=rcode(4)+'-'+rcode(4);save();modal('<h2>Nouveau code de '+esc(l.name)+'</h2><div class="codebox">'+esc(l.code)+'</div><div class="row">'+(digits(l.phone).length>=8?'<a class="btn" target="_blank" rel="noopener noreferrer" href="'+esc(wa(l.phone,'Bonjour '+l.name.split(' ')[0]+', votre nouveau code d’accès : '+l.code))+'">Envoyer par WhatsApp</a>':'')+'<button class="btn line" data-act="close">Fermer</button></div>');},
+  'lrn-del':function(el){if(!confirm('Supprimer cet apprenant et ses inscriptions ?'))return;var id=el.dataset.id;DB.learners=DB.learners.filter(function(l){return l.id!==id;});DB.enrollments=DB.enrollments.filter(function(e){return e.learnerId!==id;});save();render();},
+  'q-answer':function(el){var q=byId(DB.questions,el.dataset.id),t=document.getElementById('qa_'+q.id);if(!t.value.trim()){toast('Écrivez une réponse.');return;}q.answer=t.value.trim();save();toast('Réponse enregistrée');render();},
+  'dv-fb':function(el){var e=enr(el.dataset.e),t=document.getElementById('fb_'+el.dataset.i);if(!t.value.trim()){toast('Écrivez un retour.');return;}e.fb=e.fb||{};e.fb[el.dataset.l]=t.value.trim();save();toast('Retour enregistré');render();},
+  'proj-new':function(){var p={id:'pr_'+uid(),name:'Nouveau projet',status:'planifié',owner:'Moi',start:today(),end:addDays(today(),30),desc:'',tasks:[]};DB.projects.push(p);save();go('#/gestion/projets/'+p.id);},
+  'del-proj':function(el){if(!confirm('Supprimer ce projet et ses tâches ?'))return;DB.projects=DB.projects.filter(function(p){return p.id!==el.dataset.id;});save();go('#/gestion/projets');},
+  'add-task':function(el){var p=byId(DB.projects,el.dataset.id);p.tasks.push({id:uid(),title:'Nouvelle tâche',assignee:'',due:'',status:el.dataset.s,prio:'normale',note:''});save();render();},
+  'mv-task':function(el){var p=byId(DB.projects,el.dataset.id),k=byId(p.tasks,el.dataset.m),o=TSTAT.map(function(x){return x[0];}),i=o.indexOf(k.status)+(+el.dataset.d);if(i<0||i>2)return;k.status=o[i];save();render();},
+  'del-task':function(el){var p=byId(DB.projects,el.dataset.id);p.tasks=p.tasks.filter(function(k){return k.id!==el.dataset.m;});save();render();},
+  mon:function(el){UI.adm.mon=el.dataset.v||'';render();},
+  'lead-del':function(el){DB.leads=DB.leads.filter(function(l){return l.id!==el.dataset.id;});save();render();},
+  'leads-csv':function(){var rows=[['Date','Prénom','Contact']].concat(DB.leads.map(function(l){return [l.date,l.name,l.contact];}));download('contacts.csv','﻿'+rows.map(function(r){return r.map(csvCell).join(';');}).join('\n'),'text/csv');},
+  'set-pin':function(){var v=$('#newpin').value;if(v.length<4){toast('Le code doit avoir au moins 4 caractères.');return;}try{localStorage.setItem(KEYPIN,h53('gscpin'+v));}catch(e){}ssSet('gscLmsAdm','1');toast('Code enregistré');render();},
+  'clear-pin':function(){try{localStorage.removeItem(KEYPIN);}catch(e){}toast('Code retiré');render();},
+  'export-vitrine':exportVitrine,
+  backup:function(){download('sauvegarde-lms-'+today()+'.json',JSON.stringify(DB),'application/json');},
+  'reset-demo':function(){if(!confirm('Remettre les données de démonstration ? Vos modifications seront perdues (une copie de sécurité est gardée).'))return;DB=seed();save();toast('Données de démonstration remises');render();}
+};
+document.addEventListener('click',function(ev){
+  var a=ev.target.closest&&ev.target.closest('[data-act]');
+  if(a&&ACTS[a.dataset.act]){if(a.tagName==='A'&&!a.getAttribute('href'))ev.preventDefault();ACTS[a.dataset.act](a,ev);return;}
+  var g=ev.target.closest&&ev.target.closest('[data-go]');
+  if(g&&!ev.target.closest('a,button,input,select,textarea')){go(g.dataset.go);return;}
+  var nv=ev.target.closest&&ev.target.closest('.nav a');if(nv){var n=$('#nav');if(n)n.classList.remove('open');}
+});
+/* ---------- saisie ---------- */
+document.addEventListener('input',function(ev){
+  var t=ev.target;
+  if(t.dataset.f&&!t.dataset.k&&t.id==='f_q'){UI.f.q=t.value;render();return;}
+  if(t.hasAttribute('data-asearch')){UI.adm.q=t.value;render();return;}
+  if(t.hasAttribute('data-lsearch')){UI.adm.lq=t.value;render();return;}
+  if(t.dataset.k&&t.type!=='checkbox'&&t.tagName!=='SELECT'&&!t.dataset.rr)setField(t);
+});
+document.addEventListener('change',function(ev){
+  var t=ev.target;
+  if(t.dataset.f&&!t.dataset.k){UI.f[t.dataset.f]=t.value;render();return;}
+  if(t.hasAttribute('data-att')){var s=byId(DB.sessions,t.dataset.id);s.att=s.att||{};s.att[t.dataset.e]=t.checked;save();return;}
+  if(t.hasAttribute('data-restore')){var f=t.files[0];if(!f)return;var fr=new FileReader();fr.onload=function(){try{var o=JSON.parse(fr.result);if(!o.courses||!o.settings)throw 0;if(!confirm('Remplacer toutes les données par cette sauvegarde ?'))return;DB=o;migrate();save();toast('Sauvegarde restaurée');render();}catch(e){toast('Fichier de sauvegarde invalide.');}};fr.readAsText(f);return;}
+  if(t.dataset.k){setField(t);if(t.dataset.rr)render();}
+});
+/* ---------- formulaires ---------- */
+document.addEventListener('submit',function(ev){
+  var f=ev.target,k=f.dataset.form;if(!k)return;ev.preventDefault();var d=new FormData(f),v=function(n){return String(d.get(n)||'').trim();};
+  if(k==='lead'){
+    var nm=v('name'),ct=v('contact');if(!nm||!ct)return;
+    if(VITRINE){sendOrder({type:'contact',name:nm,phone:ct,email:ct.indexOf('@')>-1?ct:'',subject:'Demande du guide gratuit',message:'Demande du guide gratuit'});window.open(wlink('Bonjour, je voudrais recevoir le guide gratuit. Je m’appelle '+nm+' ('+ct+').'),'_blank','noopener');}
+    else{DB.leads.push({id:uid(),name:nm,contact:ct,date:today()});save();sendOrder({type:'contact',name:nm,phone:ct,email:ct.indexOf('@')>-1?ct:'',subject:'Demande du guide gratuit',message:'Demande du guide gratuit'});}
+    f.reset();toast('Merci '+nm+' ! Nous vous envoyons le guide.');return;
+  }
+  if(k==='enrol'){submitEnrol(f);return;}
+  if(k==='verify'){var c=v('code').toUpperCase();UI.f.vc=c;if(location.hash==='#/certificat/'+encodeURIComponent(c))render();else go('#/certificat/'+encodeURIComponent(c));return;}
+  if(k==='ref'){var ph=v('phone'),nm2=v('name');if(digits(ph).length<8){toast('Numéro invalide');return;}var code=refOf(ph);if(!VITRINE){DB.referrers=DB.referrers||[];if(!DB.referrers.some(function(r){return r.code===code;}))DB.referrers.push({code:code,name:nm2,phone:ph,date:today()});save();}UI.f.rc=code;render();return;}
+  if(k==='login'){var l=loginDo(v('id'),v('code'));if(!l){$('#lgmsg').textContent='E-mail, téléphone ou code incorrect.';return;}ssSet(KEYLRN,l.id);go('#/espace');render();return;}
+  if(k==='unlock'){var okp=false;try{okp=localStorage.getItem(KEYPIN)===h53('gscpin'+d.get('pin'||''));}catch(e){}var pv=document.getElementById('pin').value;try{okp=localStorage.getItem(KEYPIN)===h53('gscpin'+pv);}catch(e){}if(!okp){$('#pinmsg').textContent='Code incorrect.';return;}ssSet('gscLmsAdm','1');render();return;}
+  if(k==='manual'){var c3=course(v('course'));if(!c3)return;var nm3=v('name'),ph3=v('phone');if(digits(ph3).length<8){toast('Téléphone invalide');return;}var st=v('status');var res=makeEnrol({name:nm3,phone:ph3,email:v('email'),items:[{c:c3,amount:priceOf(c3)}],method:'Espèces / sur place',ref:'',status:st});UI.modal='';render();if(st==='payé')payModal(res.es[0]);else toast('Inscription ajoutée');return;}
+  /* espace apprenant */
+  var l2=curLearner();
+  if(k==='devoir'||k==='quiz'||k==='ask'){
+    var e=enr(f.dataset.e);if(!e||!l2||e.learnerId!==l2.id)return;var lid=f.dataset.l;e.done=e.done||{};
+    if(k==='devoir'){e.answers=e.answers||{};e.answers[lid]={text:v('text'),date:today()};if(e.fb)delete e.fb[lid];e.done[lid]=true;save();toast('Travail envoyé');render();}
+    else if(k==='quiz'){var Q=quizOf(course(e.courseId)),ok=0;Q.forEach(function(q,i){if(+d.get('q'+i)===q.a)ok++;});var sc=Q.length?Math.round(ok/Q.length*100):0;e.quiz={score:sc,date:today()};if(sc>=60)e.done[lid]=true;save();toast('Résultat : '+sc+' %');render();}
+    else{DB.questions.push({id:uid(),learnerId:l2.id,enrId:e.id,lessonId:lid,text:v('text'),date:today(),answer:''});save();toast('Question envoyée');render();}
+  }
+});
+/* reprise de lecture des vidéos en fichier */
+document.addEventListener('loadedmetadata',function(ev){var v=ev.target;if(!v.dataset||!v.dataset.vid)return;var p=0;try{p=+localStorage.getItem('gscLmsPos_'+v.dataset.vid)||0;}catch(e){}if(p>5&&p<v.duration-5)v.currentTime=p;},true);
+document.addEventListener('timeupdate',function(ev){var v=ev.target;if(!v.dataset||!v.dataset.vid)return;var t=Math.floor(v.currentTime);if(t%5===0&&t!==v._lt){v._lt=t;try{localStorage.setItem('gscLmsPos_'+v.dataset.vid,String(t));}catch(e){}}},true);
+window.addEventListener('hashchange',function(){UI.modal='';render();});
+function init(){
+  load();
+  if(!VITRINE){ /* repasse en démo si le contenu est corrompu */ }
+  render();
+}
+init();
+
+</script></body></html>
